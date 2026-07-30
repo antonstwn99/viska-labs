@@ -1,0 +1,37 @@
+{
+  "name": "web-viska-labs",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@supabase/supabase-js": "^2.106.2",
+    "lucide-react": "^1.21.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-is": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "recharts": "2.12.7",
+    "tailwindcss": "^4.3.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "clean": "node scripts/clean-build.js",
+    "prebuild": "node scripts/clean-build.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-scripts": "latest"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
