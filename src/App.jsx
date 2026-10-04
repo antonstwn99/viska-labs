@@ -78,7 +78,7 @@ const AppShell = () => {
       [ROUTES.CONTACT]: 'Kontak',
       [ROUTES.ADMIN]: 'Admin Panel',
     };
-    document.title = `${titles[route] || 'Beranda'} — ${
+    document.title = `${
       state.site_settings.company_name || BRAND.name
     }`;
 

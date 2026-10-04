@@ -860,69 +860,52 @@ export const useToast = () => useContext(ToastContext);
 export const GlobalStyles = () => (
   <style>{`
     :root {
-      --c-deep: #051C48;
-      --c-navy: #0B2F6B;
-      --c-blue: #124691;
-      --c-bright: #1566D1;
+      --bg-light: #F8FAFC; 
+      --bg-dark: #030F26; /* Deep Navy Space dari Logo */
+      --text-light: #0F172A; 
+      --text-dark: #F8FAFC;
     }
+    
     * { scroll-behavior: smooth; }
-    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.02); }
-    .dark ::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
-    ::-webkit-scrollbar-thumb { background: rgba(21,102,209,0.4); border-radius: 9999px; border: 2px solid transparent; background-clip: padding-box; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(21,102,209,0.7); border: 2px solid transparent; background-clip: padding-box; }
-    ::-webkit-scrollbar-corner { background: transparent; }
-
-    @keyframes blob {
-      0%,100% { transform: translate(0,0) scale(1); }
-      33% { transform: translate(30px,-40px) scale(1.1); }
-      66% { transform: translate(-25px,25px) scale(0.95); }
+    
+    body { 
+      -webkit-font-smoothing: antialiased; 
+      -moz-osx-font-smoothing: grayscale;
+      background-color: var(--bg-light);
+      color: var(--text-light);
     }
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-14px); }
+    
+    .dark body {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
     }
-    @keyframes gradient-pan {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(21, 102, 209, 0.3); border-radius: 10px; }
+    .dark ::-webkit-scrollbar-thumb { background: rgba(21, 102, 209, 0.5); }
+    
+    .reveal { 
+      opacity: 0; 
+      transform: translateY(20px); 
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); 
     }
-    @keyframes shine {
-      0% { transform: translateX(-150%) skewX(-20deg); }
-      100% { transform: translateX(250%) skewX(-20deg); }
-    }
-    @keyframes pulse-glow {
-      0%,100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .animate-blob { animation: blob 18s ease-in-out infinite; }
-    .animate-float { animation: float 6s ease-in-out infinite; }
-    .animate-gradient-pan { background-size: 200% 200%; animation: gradient-pan 8s ease infinite; }
-    .animate-marquee { animation: marquee 28s linear infinite; }
-    .animation-delay-2000 { animation-delay: 2s; }
-    .animation-delay-4000 { animation-delay: 4s; }
-
-    .reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-    .glass, .glass-light { background: rgba(255,255,255,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(11,47,107,0.08); }
-    .dark .glass, .dark .glass-light { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); }
-    .gradient-text { background: linear-gradient(120deg,#1566D1,#5b9bf0,#1566D1); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .dark .gradient-text { background: linear-gradient(120deg,#5b9bf0,#bae6fd,#5b9bf0); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .text-balance { text-wrap: balance; }
-    .shine-overlay { position: relative; overflow: hidden; }
-    .shine-overlay::after { content:''; position:absolute; top:0; left:0; width:60%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent); transform:translateX(-150%) skewX(-20deg); }
-    .shine-overlay:hover::after { animation: shine 1s forwards; }
-    
-    /* Global Brand Color Override khusus Light Mode */
-    html:not(.dark) .text-slate-900,
-    html:not(.dark) .text-slate-800 { color: var(--c-deep) !important; }
-    html:not(.dark) .text-slate-700 { color: var(--c-navy) !important; }
+    /* Modern Tech Card (Mengembalikan estetika canggih tanpa terlalu transparan) */
+    .glass, .glass-light { 
+      background: #FFFFFF;
+      border: 1px solid rgba(15, 23, 42, 0.05);
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 24px -8px rgba(15, 23, 42, 0.05);
+    }
+    .dark .glass, .dark .glass-light { 
+      background: rgba(5, 28, 72, 0.4); 
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
     
     html { overflow-x: hidden; }
   `}</style>
@@ -956,32 +939,23 @@ export const Button = ({
   ...props
 }) => {
   const base =
-    'inline-flex min-w-0 items-center justify-center gap-2 rounded-xl text-center font-semibold leading-tight transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1566D1]/50 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60 active:scale-[0.97] active:duration-100 dark:focus-visible:ring-offset-[#0a2350] sm:whitespace-nowrap';
+    'inline-flex min-w-0 items-center justify-center gap-2 rounded-xl text-center font-bold tracking-wide transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1566D1] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.98] sm:whitespace-nowrap text-[0.875rem]';
   const sizes = {
-    sm: 'h-9 px-3.5 text-sm',
-    md: 'h-11 px-5 text-sm',
-    lg: 'h-14 px-7 text-base py-3.5',
+    sm: 'h-10 px-4',
+    md: 'h-12 px-6',
+    lg: 'h-14 px-8 text-base',
   };
   const variants = {
-    primary:
-      'text-white bg-gradient-to-r from-[#1566D1] to-[#124691] shadow-lg shadow-[#1566D1]/30 hover:shadow-xl hover:shadow-[#1566D1]/40 hover:-translate-y-0.5',
-    secondary: 'text-white glass hover:bg-white/15 border border-white/20',
-    outline:
-      'text-[#1566D1] dark:text-white border border-[#1566D1]/40 dark:border-white/25 hover:bg-[#1566D1]/10 hover:border-[#1566D1]',
-    ghost: 'text-slate-600 dark:text-slate-300 hover:bg-slate-500/10',
-    danger:
-      'text-white bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/20',
-    success: 'text-white bg-emerald-500 hover:bg-emerald-600',
+    primary: 'bg-[#1566D1] text-white shadow-lg shadow-[#1566D1]/25 hover:bg-[#124691] hover:shadow-[#1566D1]/40',
+    secondary: 'bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200',
+    outline: 'bg-transparent text-slate-900 border border-slate-900/20 hover:border-slate-900 dark:text-white dark:border-white/20 dark:hover:border-white',
+    ghost: 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10',
+    danger: 'bg-red-600 text-white hover:bg-red-700',
+    success: 'bg-emerald-600 text-white hover:bg-emerald-700',
   };
   return (
     <Tag
-      className={classNames(
-        base,
-        sizes[size],
-        variants[variant],
-        'shine-overlay',
-        className
-      )}
+      className={classNames(base, sizes[size], variants[variant], className)}
       disabled={loading || props.disabled}
       {...props}
     >
@@ -996,28 +970,17 @@ export const Button = ({
 };
 
 export const Badge = ({ children, variant = 'default', className = '' }) => {
+  const base = 'inline-flex max-w-full items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider whitespace-normal break-words border transition-colors';
   const variants = {
-    default:
-      'bg-[#1566D1]/15 text-[#1566D1] dark:text-[#7fb0f5] border border-[#1566D1]/20',
-    glass:
-      'glass text-slate-900 dark:text-white border-slate-200/60 dark:border-white/15',
-    success:
-      'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20',
-    warning:
-      'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20',
-    danger:
-      'bg-red-500/15 text-red-600 dark:text-red-400 border border-red-500/20',
-    neutral:
-      'bg-slate-500/15 text-slate-600 dark:text-slate-300 border border-slate-500/20',
+    default: 'border-[#1566D1]/20 text-[#1566D1] bg-[#1566D1]/10 dark:border-[#1566D1]/30 dark:text-[#7fb0f5] dark:bg-[#1566D1]/20',
+    glass: 'border-slate-200 text-slate-700 bg-white dark:border-white/10 dark:text-white dark:bg-white/5 backdrop-blur-sm',
+    success: 'border-emerald-500/20 text-emerald-600 bg-emerald-500/10 dark:border-emerald-500/30 dark:text-emerald-400 dark:bg-emerald-500/20',
+    warning: 'border-amber-500/20 text-amber-600 bg-amber-500/10 dark:border-amber-500/30 dark:text-amber-400 dark:bg-amber-500/20',
+    danger: 'border-red-500/20 text-red-600 bg-red-500/10 dark:border-red-500/30 dark:text-red-400 dark:bg-red-500/20',
+    neutral: 'border-slate-200 text-slate-500 bg-slate-50 dark:border-white/10 dark:text-slate-400 dark:bg-white/5',
   };
   return (
-    <span
-      className={classNames(
-        'inline-flex max-w-full items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold leading-tight whitespace-normal break-words',
-        variants[variant],
-        className
-      )}
-    >
+    <span className={classNames(base, variants[variant], className)}>
       {children}
     </span>
   );
@@ -1026,9 +989,8 @@ export const Badge = ({ children, variant = 'default', className = '' }) => {
 export const GlassCard = ({ children, className = '', hover = true, ...props }) => (
   <div
     className={classNames(
-      'rounded-2xl glass dark:glass glass-light p-4 transition-all duration-500 sm:p-6',
-      hover &&
-        'hover:-translate-y-1.5 hover:border-[#1566D1]/40 hover:shadow-2xl hover:shadow-[#1566D1]/20',
+      'glass dark:glass glass-light p-6 sm:p-8 transition-all duration-300',
+      hover && 'hover:-translate-y-1 hover:border-[#1566D1]/30 hover:shadow-xl dark:hover:border-white/20',
       className
     )}
     {...props}
@@ -1037,25 +999,19 @@ export const GlassCard = ({ children, className = '', hover = true, ...props }) 
   </div>
 );
 
-export const SectionHeading = ({
-  eyebrow,
-  title,
-  description,
-  center = true,
-  light,
-}) => (
+export const SectionHeading = ({ eyebrow, title, description, center = true, light }) => (
   <div className={classNames('max-w-3xl', center && 'mx-auto text-center')}>
     {eyebrow && (
       <Reveal>
-        <Badge variant={light ? 'glass' : 'default'} className="mb-4">
-          <Sparkles className="h-3.5 w-3.5" /> {eyebrow}
+        <Badge variant={light ? 'glass' : 'default'} className="mb-6">
+          <Sparkles className="h-3 w-3" /> {eyebrow}
         </Badge>
       </Reveal>
     )}
     <Reveal delay={80}>
       <h2
         className={classNames(
-          'text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-balance',
+          'text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-balance',
           light ? 'text-white' : 'text-slate-900 dark:text-white'
         )}
       >
@@ -1066,8 +1022,9 @@ export const SectionHeading = ({
       <Reveal delay={160}>
         <p
           className={classNames(
-            'mt-4 text-base sm:text-lg leading-relaxed',
-            light ? 'text-slate-200' : 'text-slate-600 dark:text-slate-300'
+            'mt-6 text-base sm:text-lg leading-relaxed max-w-2xl font-medium',
+            center && 'mx-auto',
+            light ? 'text-slate-200' : 'text-slate-500 dark:text-slate-400'
           )}
         >
           {description}
@@ -1129,8 +1086,7 @@ export const Field = ({ label, error, required, children, hint }) => (
   </label>
 );
 
-export const inputClass =
-  'w-full h-11 rounded-xl border border-slate-300/60 dark:border-white/15 bg-white/80 dark:bg-white/5 px-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 hover:border-slate-400/80 dark:hover:border-white/30 focus:border-[#1566D1] dark:focus:border-[#7fb0f5] focus:ring-4 focus:ring-[#1566D1]/20 dark:focus:ring-[#7fb0f5]/20 outline-none transition-all duration-300';
+export const inputClass = 'w-full h-12 rounded-xl border border-slate-200 bg-white/50 px-4 text-sm font-medium text-slate-900 placeholder:text-slate-400 hover:border-[#1566D1]/50 focus:border-[#1566D1] focus:ring-4 focus:ring-[#1566D1]/10 outline-none transition-all duration-300 dark:border-white/10 dark:bg-[#051C48]/30 dark:text-white dark:placeholder:text-slate-500 dark:hover:border-[#7fb0f5]/50 dark:focus:border-[#7fb0f5] dark:focus:ring-[#7fb0f5]/10';
 
 export const Input = ({ className = '', ...props }) => (
   <input className={classNames(inputClass, className)} {...props} />
@@ -1368,7 +1324,7 @@ export const Logo = ({ onClick, light }) => (
       <span
         className={classNames(
           'mt-1 truncate text-[0.56rem] font-bold tracking-[0.18em] sm:text-[0.64rem] sm:tracking-[0.28em]',
-          light ? 'text-white/75' : 'text-[#1566D1] dark:text-[#5b9bf0]'
+          light ? 'text-white/75' : 'text-[#1566D1] dark:text-[#7fb0f5]'
         )}
       >
         CREATIVE TECHNOLOGY
