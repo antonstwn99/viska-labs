@@ -246,27 +246,39 @@ export const useDataStore = () => {
 // =========================================
 
 export const AnimatedBackground = () => (
-  <div className="fixed inset-0 -z-10 bg-[#F9F9F8] dark:bg-[#0A0A0B] transition-colors duration-500">
-    {/* Subtle Noise / Grain Filter untuk sentuhan editorial (tanpa blob) */}
+  <div className="fixed inset-0 -z-10 overflow-hidden bg-slate-50 dark:bg-[#030F26] transition-colors duration-500">
+    {/* Tech-vibe ambient glow - disesuaikan dengan warna logo (Biru gelap ke biru terang) */}
+    <div className="absolute top-[-10%] left-[-5%] h-[500px] w-[500px] rounded-full bg-[#1566D1]/10 dark:bg-[#1566D1]/20 blur-[120px] pointer-events-none" />
+    <div className="absolute bottom-[-10%] right-[-5%] h-[600px] w-[600px] rounded-full bg-[#051C48]/5 dark:bg-[#1566D1]/10 blur-[150px] pointer-events-none" />
+    
+    {/* Subtle grid layer untuk nuansa teknologi modern */}
     <div 
-      className="absolute inset-0 opacity-[0.03] dark:opacity-[0.04] pointer-events-none"
+      className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
       style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        backgroundImage: 'linear-gradient(rgba(21,102,209,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(21,102,209,0.8) 1px, transparent 1px)',
+        backgroundSize: '64px 64px'
       }}
     />
   </div>
 );
 
-// ScrollProgressBar sengaja dikosongkan karena warna gradientnya mengganggu art direction editorial
-export const ScrollProgressBar = () => null;
-
- 
+export const ScrollProgressBar = () => {
+  const progress = useScrollProgress();
+  return (
+    <div className="fixed left-0 top-0 z-[90] h-1 w-full bg-transparent">
+      <div
+        className="h-full w-full bg-gradient-to-r from-[#1566D1] to-[#7fb0f5] origin-left will-change-transform"
+        style={{ transform: `scaleX(${progress})` }}
+      />
+    </div>
+  );
+};
 
 export const Navbar = ({ route, navigate, theme, toggleTheme }) => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -278,54 +290,65 @@ export const Navbar = ({ route, navigate, theme, toggleTheme }) => {
   return (
     <header
       className={classNames(
-        'fixed inset-x-0 top-0 z-[80] transition-colors duration-300',
-        scrolled
-          ? 'bg-[#F9F9F8]/95 dark:bg-[#0A0A0B]/95 backdrop-blur-md border-b border-slate-900/10 dark:border-white/10'
-          : 'bg-transparent border-b border-transparent'
+        'fixed inset-x-0 top-0 z-[80] transition-all duration-300',
+        scrolled ? 'py-3' : 'py-5'
       )}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex h-20 items-center justify-between">
-          <Logo onClick={() => go(ROUTES.HOME)} light={false} />
-          
-          <nav className="hidden items-center gap-6 lg:flex">
+        <div
+          className={classNames(
+            'flex items-center justify-between rounded-2xl px-5 py-3 transition-all duration-300 border',
+            scrolled
+              ? 'glass dark:glass shadow-lg'
+              : 'bg-white/50 dark:bg-[#030F26]/30 border-transparent backdrop-blur-md'
+          )}
+        >
+          <Logo onClick={() => go(ROUTES.HOME)} />
+          <nav className="hidden items-center gap-1.5 lg:flex">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.route}
                 onClick={() => go(link.route)}
                 className={classNames(
-                  'text-[0.65rem] font-bold uppercase tracking-widest transition-colors',
+                  'rounded-lg px-4 py-2 text-sm font-semibold transition-colors',
                   route === link.route
-                    ? 'text-slate-900 dark:text-white'
-                    : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+                    ? 'bg-[#1566D1]/10 text-[#1566D1] dark:bg-[#1566D1]/20 dark:text-[#7fb0f5]'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white'
                 )}
               >
                 {link.label}
               </button>
             ))}
           </nav>
-          
           <div className="flex items-center gap-3">
             <button
+              onClick={() => go(ROUTES.ADMIN)}
+              className="hidden sm:inline-flex rounded-xl p-2.5 text-slate-500 transition hover:bg-[#1566D1]/10 hover:text-[#1566D1] dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
+              aria-label="Admin Panel"
+            >
+              <ShieldCheck className="h-5 w-5" />
+            </button>
+            <button
               onClick={toggleTheme}
-              className="p-2 text-slate-400 transition hover:text-slate-900 dark:text-slate-500 dark:hover:text-white"
+              className="rounded-xl p-2.5 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
             <Button
               size="sm"
               className="hidden sm:inline-flex"
               onClick={() => go(ROUTES.CONTACT)}
+              icon={ArrowRight}
             >
               Hubungi Kami
             </Button>
             <button
               onClick={() => setOpen((o) => !o)}
-              className="p-2 text-slate-900 transition dark:text-white lg:hidden"
+              className="rounded-xl p-2 text-slate-700 transition hover:bg-slate-100 dark:text-white dark:hover:bg-white/10 lg:hidden"
               aria-label="Menu"
             >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -336,26 +359,32 @@ export const Navbar = ({ route, navigate, theme, toggleTheme }) => {
               className="fixed inset-0 -z-10 bg-slate-900/20 backdrop-blur-sm dark:bg-black/60 lg:hidden"
               onClick={() => setOpen(false)}
             />
-            <div className="absolute left-0 right-0 top-full border-b border-slate-900/10 bg-[#F9F9F8] px-4 pb-6 pt-4 dark:border-white/10 dark:bg-[#0A0A0B] shadow-2xl lg:hidden">
+            <div className="mt-3 rounded-3xl glass dark:glass p-4 shadow-2xl lg:hidden max-h-[75vh] overflow-y-auto">
               <nav className="flex flex-col gap-1">
                 {NAV_LINKS.map((link) => (
                   <button
                     key={link.route}
                     onClick={() => go(link.route)}
                     className={classNames(
-                      'px-4 py-3 text-left text-xs font-bold uppercase tracking-widest transition-colors',
+                      'rounded-xl px-4 py-3 text-left text-sm font-bold transition-colors',
                       route === link.route
-                        ? 'bg-slate-900/5 text-slate-900 dark:bg-white/10 dark:text-white'
-                        : 'text-slate-500 hover:bg-slate-900/5 dark:text-slate-400 dark:hover:bg-white/5'
+                        ? 'bg-[#1566D1]/10 text-[#1566D1] dark:bg-[#1566D1]/20 dark:text-[#7fb0f5]'
+                        : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/5'
                     )}
                   >
                     {link.label}
                   </button>
                 ))}
-                <div className="mt-4 px-4">
+                <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/10 flex flex-col gap-3">
                   <Button className="w-full" onClick={() => go(ROUTES.CONTACT)}>
                     Hubungi Kami
                   </Button>
+                  <button
+                    onClick={() => go(ROUTES.ADMIN)}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 dark:bg-white/5 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 transition hover:bg-[#1566D1]/10 hover:text-[#1566D1] dark:hover:text-white"
+                  >
+                    <ShieldCheck className="h-5 w-5" /> Akses Admin
+                  </button>
                 </div>
               </nav>
             </div>
@@ -367,15 +396,13 @@ export const Navbar = ({ route, navigate, theme, toggleTheme }) => {
 };
 
 export const Footer = ({ navigate, settings }) => (
-  <footer className="relative mt-32 border-t border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white">
+  <footer className="relative mt-32 border-t border-slate-200 dark:border-white/10 bg-white/50 dark:bg-[#030F26]/50 backdrop-blur-lg">
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
       <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-1">
-          {/* Logo otomatis menyesuaikan dark/light mode bawaan sistem */}
           <Logo onClick={() => navigate(ROUTES.HOME)} />
           <p className="mt-6 max-w-xs text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">
-            {settings.company_tagline || BRAND.tagline}. Kami merancang
-            pengalaman digital fungsional untuk bisnis yang menuntut kualitas.
+            {settings.company_tagline || BRAND.tagline}. Agensi teknologi kreatif yang merancang pengalaman digital canggih dan presisi.
           </p>
           <div className="mt-8 flex gap-3">
             {[
@@ -388,24 +415,24 @@ export const Footer = ({ navigate, settings }) => (
                 href={url || '#'}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-600 transition-colors hover:bg-[#1566D1] hover:text-white dark:bg-white/5 dark:text-slate-400 dark:hover:bg-[#1566D1] dark:hover:text-white"
               >
-                {Icon && <Icon className="h-4 w-4" />}
+                {Icon && <Icon className="h-5 w-5" />}
               </a>
             ))}
           </div>
         </div>
         
         <div>
-          <h4 className="mb-6 text-[0.65rem] font-bold uppercase tracking-widest text-slate-400">
-            Navigasi
+          <h4 className="mb-6 text-sm font-bold text-slate-900 dark:text-white">
+            Eksplorasi
           </h4>
-          <ul className="space-y-3 text-sm font-bold">
+          <ul className="space-y-3 text-sm font-medium text-slate-500 dark:text-slate-400">
             {NAV_LINKS.map((l) => (
               <li key={l.route}>
                 <button
                   onClick={() => navigate(l.route)}
-                  className="hover:underline underline-offset-4"
+                  className="hover:text-[#1566D1] dark:hover:text-[#7fb0f5] transition-colors"
                 >
                   {l.label}
                 </button>
@@ -415,7 +442,7 @@ export const Footer = ({ navigate, settings }) => (
         </div>
         
         <div>
-          <h4 className="mb-6 text-[0.65rem] font-bold uppercase tracking-widest text-slate-400">
+          <h4 className="mb-6 text-sm font-bold text-slate-900 dark:text-white">
             Layanan
           </h4>
           <ul className="space-y-3 text-sm font-medium text-slate-500 dark:text-slate-400">
@@ -429,7 +456,7 @@ export const Footer = ({ navigate, settings }) => (
               <li key={s}>
                 <button
                   onClick={() => navigate(ROUTES.SERVICES)}
-                  className="hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="hover:text-[#1566D1] dark:hover:text-[#7fb0f5] transition-colors"
                 >
                   {s}
                 </button>
@@ -439,14 +466,14 @@ export const Footer = ({ navigate, settings }) => (
         </div>
         
         <div>
-          <h4 className="mb-6 text-[0.65rem] font-bold uppercase tracking-widest text-slate-400">
-            Kontak
+          <h4 className="mb-6 text-sm font-bold text-slate-900 dark:text-white">
+            Hubungi Kami
           </h4>
           <ul className="space-y-4 text-sm font-medium text-slate-500 dark:text-slate-400">
             <li>
               <a
                 href={`mailto:${settings.contact_email || BRAND.email}`}
-                className="flex items-center gap-3 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="flex items-center gap-3 hover:text-[#1566D1] dark:hover:text-[#7fb0f5] transition-colors"
               >
                 {Mail && <Mail className="h-4 w-4" />}
                 {settings.contact_email || BRAND.email}
@@ -457,7 +484,7 @@ export const Footer = ({ navigate, settings }) => (
                 href={`tel:+${(
                   settings.whatsapp_number || BRAND.whatsapp
                 ).replace(/\D/g, '')}`}
-                className="flex items-center gap-3 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="flex items-center gap-3 hover:text-[#1566D1] dark:hover:text-[#7fb0f5] transition-colors"
               >
                 {Phone && <Phone className="h-4 w-4" />} 
                 +{settings.whatsapp_number || BRAND.whatsapp}
@@ -471,15 +498,15 @@ export const Footer = ({ navigate, settings }) => (
         </div>
       </div>
       
-      <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-slate-900/10 dark:border-white/10 pt-8 text-xs font-bold uppercase tracking-widest text-slate-400 sm:flex-row">
+      <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-slate-200 dark:border-white/10 pt-8 text-xs font-semibold text-slate-500 sm:flex-row">
         <p>
           © {new Date().getFullYear()} {settings.company_name || BRAND.name}.
         </p>
         <button
           onClick={() => navigate(ROUTES.ADMIN)}
-          className="flex items-center gap-2 hover:text-slate-900 dark:hover:text-white transition-colors"
+          className="flex items-center gap-2 hover:text-[#1566D1] dark:hover:text-white transition-colors"
         >
-          {ShieldCheck && <ShieldCheck className="h-3 w-3" />} Admin Panel
+          {ShieldCheck && <ShieldCheck className="h-4 w-4" />} Admin Panel
         </button>
       </div>
     </div>
@@ -487,12 +514,12 @@ export const Footer = ({ navigate, settings }) => (
 );
 
 export const FloatingWhatsApp = ({ settings }) => (
-  <div className="fixed bottom-5 left-5 z-[85] animate-float">
+  <div className="fixed bottom-6 right-6 z-[85]">
     <a
       href={buildWhatsAppLink(settings.whatsapp_number)}
       target="_blank"
       rel="noreferrer"
-      className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-xl shadow-emerald-500/40 transition-transform duration-300 hover:scale-110"
+      className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-xl shadow-emerald-500/30 transition-all duration-300 hover:scale-110 hover:shadow-emerald-500/50"
       aria-label="Chat WhatsApp"
     >
       <MessageCircle className="h-7 w-7" />
@@ -508,13 +535,13 @@ const StatItem = ({ end, suffix, label, start }) => {
   const value = useCountUp(end, { start });
   return (
     <div className="text-center">
-      <p className="text-4xl font-extrabold text-white sm:text-5xl">
+      <p className="text-4xl font-black text-slate-900 dark:text-white sm:text-5xl tracking-tight">
         {value}
-        <span className="bg-gradient-to-r from-[#5b9bf0] to-[#bae6fd] bg-clip-text text-transparent">
+        <span className="text-[#1566D1] dark:text-[#7fb0f5]">
           {suffix}
         </span>
       </p>
-      <p className="mt-2 text-sm font-medium text-slate-300">{label}</p>
+      <p className="mt-3 text-sm font-bold text-slate-500 uppercase tracking-wider">{label}</p>
     </div>
   );
 };
@@ -522,21 +549,21 @@ const StatItem = ({ end, suffix, label, start }) => {
 const StatsSection = () => {
   const [ref, visible] = useReveal({ threshold: 0.3 });
   const stats = [
-    { end: 120, suffix: '+', label: 'Proyek Selesai' },
-    { end: 95, suffix: '+', label: 'Klien Puas' },
-    { end: 7, suffix: ' th', label: 'Pengalaman' },
-    { end: 5, suffix: '.0', label: 'Rating Rata-rata' },
+    { end: 10, suffix: '+', label: 'Proyek Selesai' },
+    { end: 95, suffix: '%', label: 'Klien Puas' },
+    { end: 2, suffix: ' th', label: 'Pengalaman' },
+    { end: 5, suffix: '.0', label: 'Rating Bintang' },
   ];
   return (
     <section ref={ref} className="relative py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#0B2F6B] to-[#051C48] p-8 sm:p-12 shadow-2xl">
+        <GlassCard hover={false} className="p-8 sm:p-12">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {stats.map((s) => (
               <StatItem key={s.label} {...s} start={visible} />
             ))}
           </div>
-        </div>
+        </GlassCard>
       </div>
     </section>
   );
@@ -547,37 +574,46 @@ const HeroSection = ({ navigate }) => {
     <section className="relative flex min-h-[95dvh] items-center justify-center pt-28 pb-20">
       <div className="relative mx-auto max-w-5xl px-4 text-center sm:px-6">
         <Reveal>
-          <Badge variant="glass" className="mb-8">
+          <Badge className="mb-8 px-4 py-1.5 shadow-sm">
+            <span className="h-2 w-2 rounded-full bg-[#1566D1] animate-pulse mr-1" />
             Viska Labs Indonesia
           </Badge>
         </Reveal>
         <Reveal delay={100}>
-          {/* Implementasi Inline Font Mixing (Satoshi + Playfair Display) */}
-          <h1 className="text-balance text-5xl font-black leading-[1.05] tracking-tighter text-slate-900 dark:text-white sm:text-7xl md:text-[5.5rem]">
-            Teknologi digital, <br className="hidden md:block" />
-            <span className="editorial-accent text-slate-500 dark:text-slate-400">dirancang</span> untuk dampak nyata.
+          <h1 className="text-balance text-4xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white sm:text-6xl md:text-7xl">
+            Solusi digital modern, <br className="hidden md:block" />
+            <span className="editorial-accent">dirancang</span> untuk dampak nyata.
           </h1>
         </Reveal>
         <Reveal delay={200}>
-          <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-slate-500 dark:text-slate-400 sm:text-lg font-medium">
-            Kami membangun website, aplikasi, dan sistem perangkat lunak dengan pendekatan fungsional, performa tinggi, dan estetika yang presisi.
+          <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg font-medium">
+            Kami membangun platform web, aplikasi mobile, dan sistem perangkat lunak yang presisi, menggabungkan rekayasa teknologi tingkat tinggi dengan desain antarmuka premium.
           </p>
         </Reveal>
         <Reveal delay={300}>
-          <div className="mt-12 mx-auto flex w-full max-w-xs flex-col items-stretch justify-center gap-4 sm:max-w-none sm:flex-row sm:items-center">
+          <div className="mt-12 mx-auto flex w-full max-w-sm flex-col items-stretch justify-center gap-4 sm:max-w-none sm:flex-row sm:items-center">
             <Button
               size="lg"
               onClick={() => navigate(ROUTES.PORTFOLIO)}
+              icon={Layers}
             >
               Lihat Karya Kami
             </Button>
             <Button
               size="lg"
-              variant="secondary"
+              variant="outline"
               onClick={() => navigate(ROUTES.CONTACT)}
             >
               Mulai Diskusi
             </Button>
+          </div>
+        </Reveal>
+        <Reveal delay={500}>
+          <div className="mt-20 flex flex-col items-center gap-3 text-slate-400">
+            <span className="text-[0.65rem] font-bold uppercase tracking-widest">
+              Jelajahi Lebih Lanjut
+            </span>
+            <ChevronDown className="h-5 w-5 animate-bounce text-[#1566D1]" />
           </div>
         </Reveal>
       </div>
@@ -592,12 +628,12 @@ const TechMarquee = () => {
   ];
   const doubled = [...items, ...items];
   return (
-    <section className="relative overflow-hidden border-y border-white/10 py-6">
+    <section className="relative overflow-hidden py-10">
       <div className="flex w-max animate-marquee gap-12 px-6">
         {doubled.map((t, i) => (
           <span
             key={i}
-            className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+            className="flex items-center gap-2 text-sm font-bold tracking-wider text-slate-400 dark:text-slate-500"
           >
             <Sparkles className="h-4 w-4 text-[#1566D1]" /> {t}
           </span>
@@ -607,52 +643,39 @@ const TechMarquee = () => {
   );
 };
 
-const ServiceCard = ({ service, navigate, index, delay }) => (
+const ServiceCard = ({ service, navigate, delay }) => (
   <Reveal delay={delay}>
-    <div className="group flex flex-col justify-between h-full border-t border-slate-900/10 dark:border-white/10 pt-6 pb-12 transition-colors hover:border-slate-900 dark:hover:border-white">
-      <div>
-        <div className="flex items-start justify-between mb-8">
-          <span className="text-xs font-bold text-slate-400">
-            {String(index + 1).padStart(2, '0')}
-          </span>
-          <ServiceIcon name={service.icon_name} className="h-5 w-5 text-slate-900 dark:text-white" />
-        </div>
-        <h3 className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">
-          {service.name}
-        </h3>
-        <p className="mt-4 text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">
-          {service.short_description}
-        </p>
+    <GlassCard className="group h-full flex flex-col">
+      <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1566D1]/10 text-[#1566D1] transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#1566D1] group-hover:text-white">
+        <ServiceIcon name={service.icon_name} className="h-7 w-7" />
       </div>
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+        {service.name}
+      </h3>
+      <p className="mt-3 flex-1 text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">
+        {service.short_description}
+      </p>
       <button
         onClick={() => navigate(ROUTES.SERVICES)}
-        className="mt-8 inline-flex w-fit items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-slate-900 dark:text-white group-hover:underline underline-offset-4"
+        className="mt-6 flex items-center gap-2 text-sm font-bold text-[#1566D1] dark:text-[#7fb0f5] transition-all group-hover:gap-3"
       >
-        Pelajari <ArrowRight className="h-3 w-3" />
+        Pelajari layanan <ArrowRight className="h-4 w-4" />
       </button>
-    </div>
+    </GlassCard>
   </Reveal>
 );
 
 const ServicesPreview = ({ services, navigate }) => (
-  <section className="relative py-24 sm:py-32">
+  <section className="relative py-24">
     <div className="mx-auto max-w-7xl px-4 sm:px-6">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-        <SectionHeading
-          center={false}
-          eyebrow="Disiplin Praktik"
-          title="Kapabilitas End-to-End"
-          description="Dari ide hingga peluncuran, kami memegang kendali atas setiap lapisan rekayasa perangkat lunak dan desain interaktif."
-        />
-        <Reveal>
-          <Button variant="outline" onClick={() => navigate(ROUTES.SERVICES)}>
-            Lihat Semua Layanan
-          </Button>
-        </Reveal>
-      </div>
-      <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+      <SectionHeading
+        eyebrow="Spesialisasi Kami"
+        title="Kapabilitas Digital Terpadu"
+        description="Dari arsitektur backend yang kokoh hingga desain antarmuka yang elegan, kami menangani seluruh spektrum rekayasa teknologi."
+      />
+      <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {services.slice(0, 6).map((s, i) => (
-          <ServiceCard key={s.id} index={i} service={s} navigate={navigate} delay={i * 80} />
+          <ServiceCard key={s.id} service={s} navigate={navigate} delay={i * 80} />
         ))}
       </div>
     </div>
@@ -665,11 +688,11 @@ const PortfolioCard = ({ item, navigate, delay }) => {
     <Reveal delay={delay}>
       <button
         onClick={() => navigate(ROUTES.PORTFOLIO_DETAIL, { slug: item.slug })}
-        className="group flex w-full flex-col gap-5 text-left"
+        className="group block w-full text-left"
       >
         <div
           className={classNames(
-            'w-full overflow-hidden bg-slate-200 dark:bg-slate-800',
+            'w-full overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-800 shadow-md transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-[#1566D1]/20',
             isMobileApp ? 'aspect-[4/5] sm:aspect-[3/4]' : 'aspect-square sm:aspect-[4/3]'
           )}
         >
@@ -677,22 +700,19 @@ const PortfolioCard = ({ item, navigate, delay }) => {
             src={item.thumbnail_url}
             alt={item.title}
             loading="lazy"
-            className="h-full w-full object-cover transition-all duration-700 sm:grayscale group-hover:scale-105 group-hover:grayscale-0"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </div>
-        <div>
-          <div className="mb-2 flex items-center justify-between border-b border-slate-900/10 dark:border-white/10 pb-2">
-            <span className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+        <div className="pt-6 px-2">
+          <div className="mb-3 flex items-center gap-3">
+            <Badge variant="default" className="!px-2.5 !py-1 !text-[0.6rem]">
               {item.category}
-            </span>
-            <span className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
-              {new Date(item.completed_at || Date.now()).getFullYear()}
-            </span>
+            </Badge>
           </div>
-          <h3 className="text-xl font-black tracking-tighter text-slate-900 dark:text-white group-hover:underline underline-offset-4">
+          <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white transition-colors group-hover:text-[#1566D1] dark:group-hover:text-[#7fb0f5]">
             {item.title}
           </h3>
-          <p className="mt-1 text-sm font-medium text-slate-500 dark:text-slate-400">
+          <p className="mt-2 text-sm font-medium text-slate-500 dark:text-slate-400">
             {item.client_name}
           </p>
         </div>
@@ -705,29 +725,28 @@ const PortfolioHighlights = ({ portfolios, navigate }) => {
   const featured = portfolios.filter((p) => p.is_published && p.is_featured).slice(0, 4);
   const items = featured.length ? featured : portfolios.filter((p) => p.is_published).slice(0, 4);
   return (
-    <section className="relative py-24 sm:py-32">
+    <section className="relative py-24 bg-slate-50/50 dark:bg-[#030F26]/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end mb-16">
+        <div className="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end mb-16">
           <SectionHeading
             center={false}
-            eyebrow="Karya Terpilih"
-            title="Arsip Digital"
-            description="Implementasi rekayasa perangkat lunak dan desain interaktif yang membawa hasil nyata."
+            eyebrow="Studi Kasus"
+            title="Karya Terbaik Kami"
+            description="Melihat langsung bagaimana kami mengubah masalah kompleks menjadi solusi digital yang presisi."
           />
           <Reveal>
             <Button
               variant="outline"
               onClick={() => navigate(ROUTES.PORTFOLIO)}
+              icon={ArrowRight}
             >
               Jelajahi Arsip
             </Button>
           </Reveal>
         </div>
-        <div className="columns-1 gap-8 sm:columns-2">
+        <div className="grid gap-8 sm:grid-cols-2">
           {items.map((p, i) => (
-            <div key={p.id} className="mb-12 break-inside-avoid block w-full">
-              <PortfolioCard item={p} navigate={navigate} delay={i * 80} />
-            </div>
+            <PortfolioCard key={p.id} item={p} navigate={navigate} delay={i * 80} />
           ))}
         </div>
       </div>
@@ -740,45 +759,46 @@ const WhyChooseUs = () => {
     {
       icon: Rocket,
       title: 'Pengiriman Agresif',
-      desc: 'Metodologi ketat untuk meluncurkan produk tepat waktu tanpa toleransi terhadap penurunan kualitas.',
+      desc: 'Metodologi ketat untuk meluncurkan produk tepat waktu tanpa kompromi pada standar kualitas.',
     },
     {
       icon: Gauge,
-      title: 'Performa Absolut',
-      desc: 'Core Web Vitals hijau, skor PageSpeed 90+, dan arsitektur kode yang teroptimasi secara ekstrem.',
+      title: 'Performa Optimal',
+      desc: 'Skor metrik performa tinggi dan arsitektur kode yang teroptimasi secara mendalam.',
     },
     {
       icon: Palette,
-      title: 'Estetika Fungsional',
-      desc: 'Desain editorial yang menyingkirkan elemen dekoratif usang, berfokus pada tipografi dan ruang.',
+      title: 'Desain Berkelas',
+      desc: 'Antarmuka premium yang mengutamakan kenyamanan pengguna (UX) dan keindahan visual (UI).',
     },
     {
       icon: ShieldCheck,
-      title: 'Kestabilan Skala',
-      desc: 'Arsitektur cloud-native dengan keamanan berlapis. Dibangun untuk bertahan dan bertumbuh.',
+      title: 'Skalabel & Aman',
+      desc: 'Sistem yang dibangun dengan keamanan berlapis, siap menopang pertumbuhan bisnis Anda.',
     },
   ];
   return (
-    <section className="relative py-24 sm:py-32 border-y border-slate-900/10 dark:border-white/10">
+    <section className="relative py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
-          center={false}
-          eyebrow="Mengapa Kami"
-          title="Standar Agensi, Kelincahan Startup"
-          description="Kami tidak memproduksi template. Kami merekayasa solusi kustom yang menjadi aset jangka panjang bisnis Anda."
+          eyebrow="Mengapa Viska Labs"
+          title="Keunggulan Teknis & Kreatif"
+          description="Kami memposisikan diri sebagai mitra teknologi, bukan sekadar vendor pelaksana."
         />
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 border-t border-l border-slate-900/10 dark:border-white/10">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((r, i) => (
             <Reveal key={r.title} delay={i * 80}>
-              <div className="p-8 sm:p-12 border-r border-b border-slate-900/10 dark:border-white/10 h-full transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/30">
-                <r.icon className="h-6 w-6 mb-6 text-slate-900 dark:text-white" />
-                <h3 className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">
+              <GlassCard className="h-full text-center">
+                <div className="mx-auto mb-6 inline-flex rounded-2xl bg-[#1566D1]/10 p-4 text-[#1566D1]">
+                  <r.icon className="h-6 w-6" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   {r.title}
                 </h3>
-                <p className="mt-4 text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">
+                <p className="mt-3 text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">
                   {r.desc}
                 </p>
-              </div>
+              </GlassCard>
             </Reveal>
           ))}
         </div>
@@ -799,56 +819,57 @@ const TestimonialCarousel = ({ testimonials }) => {
   if (!approved.length) return null;
   const active = approved[index];
   return (
-    <section className="relative py-24 sm:py-32 overflow-hidden">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading center={false} eyebrow="Kredibilitas" title="Kata Mereka" />
+    <section className="relative py-24">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <SectionHeading eyebrow="Kredibilitas" title="Dipercaya oleh Klien" />
         <div
-          className="relative mt-16"
+          className="relative mt-12"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocus={() => setPaused(true)}
           onBlur={() => setPaused(false)}
         >
-          <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start md:items-center">
-            <div className="flex-1">
-              <Quote className="h-8 w-8 text-slate-300 dark:text-slate-800 mb-8" />
-              <p className="text-2xl sm:text-3xl md:text-4xl leading-tight text-slate-900 dark:text-white font-medium text-balance transition-opacity duration-500">
-                “<span className="editorial-accent">{active.content}</span>”
-              </p>
-            </div>
-            <div className="w-full md:w-72 shrink-0 border-t md:border-t-0 md:border-l border-slate-900/10 dark:border-white/10 pt-8 md:pt-0 md:pl-10">
-              <div className="flex items-center gap-4">
-                {active.client_photo_url && (
-                  <img
-                    src={active.client_photo_url}
-                    alt={active.client_name}
-                    className="h-14 w-14 rounded-none grayscale object-cover"
-                  />
-                )}
-                <div>
-                  <p className="font-black tracking-tight text-slate-900 dark:text-white">
-                    {active.client_name}
-                  </p>
-                  <p className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-500 mt-1">
-                    {active.client_title}
-                    {active.client_company ? ` · ${active.client_company}` : ''}
-                  </p>
-                </div>
+          <GlassCard hover={false} className="text-center sm:p-12 shadow-2xl">
+            <Quote className="mx-auto mb-6 h-12 w-12 text-[#1566D1]/20" />
+            <p className="text-xl leading-relaxed text-slate-800 dark:text-slate-200 sm:text-2xl font-medium">
+              “{active.content}”
+            </p>
+            <div className="mt-10 flex flex-col items-center gap-4">
+              {active.client_photo_url && (
+                <img
+                  src={active.client_photo_url}
+                  alt={active.client_name}
+                  className="h-16 w-16 rounded-full border-4 border-white dark:border-[#030F26] shadow-md object-cover"
+                />
+              )}
+              <div>
+                <p className="font-bold text-slate-900 dark:text-white">
+                  {active.client_name}
+                </p>
+                <p className="text-sm font-medium text-[#1566D1] dark:text-[#7fb0f5] mt-1">
+                  {active.client_title}
+                  {active.client_company ? ` di ${active.client_company}` : ''}
+                </p>
               </div>
-              <div className="mt-8 flex items-center gap-2">
-                {approved.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setIndex(i)}
-                    className={classNames(
-                      'h-1 transition-all duration-500',
-                      i === index ? 'w-8 bg-slate-900 dark:bg-white' : 'w-2 bg-slate-300 dark:bg-slate-800'
-                    )}
-                    aria-label={`Lihat testimoni ${i + 1}`}
-                  />
-                ))}
-              </div>
+              <StarRating value={active.rating} />
             </div>
+          </GlassCard>
+          <div className="mt-8 flex items-center justify-center gap-2">
+            {approved.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                className="p-2 outline-none focus-visible:ring-2 focus-visible:ring-[#1566D1] rounded-full"
+                aria-label={`Lihat testimoni ${i + 1}`}
+              >
+                <span
+                  className={classNames(
+                    'block h-2 rounded-full transition-all duration-300',
+                    i === index ? 'w-8 bg-[#1566D1]' : 'w-2 bg-slate-300 dark:bg-slate-700'
+                  )}
+                />
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -857,32 +878,29 @@ const TestimonialCarousel = ({ testimonials }) => {
 };
 
 export const CtaSection = ({ navigate }) => (
-  <section className="relative py-24 sm:py-32 border-t border-slate-900/10 dark:border-white/10">
+  <section className="relative py-24">
     <div className="mx-auto max-w-7xl px-4 sm:px-6">
       <Reveal>
-        <div className="relative bg-slate-900 dark:bg-white text-white dark:text-slate-900 p-10 sm:p-24 flex flex-col items-center text-center">
-          <h2 className="text-balance text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter">
-            Siap untuk <br />
-            <span className="editorial-accent text-slate-400 dark:text-slate-500">bertransformasi?</span>
-          </h2>
-          <p className="mx-auto mt-8 max-w-lg text-sm sm:text-base font-medium text-slate-400 dark:text-slate-600">
-            Mari wujudkan visi Anda menjadi pengalaman perangkat lunak fungsional yang bebas kompromi. Konsultasi bebas biaya.
-          </p>
-          <div className="mt-12 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-            <Button 
-              size="lg" 
-              className="w-full sm:w-auto bg-white text-slate-900 hover:bg-slate-200 dark:bg-slate-900 dark:text-white dark:hover:bg-slate-800"
-              onClick={() => navigate(ROUTES.CONTACT)} 
-            >
-              Mulai Diskusi
-            </Button>
-            <Button 
-              size="lg" 
-              className="w-full sm:w-auto bg-transparent text-white border-white hover:bg-white hover:text-slate-900 dark:text-slate-900 dark:border-slate-900 dark:hover:bg-slate-900 dark:hover:text-white"
-              onClick={() => navigate(ROUTES.PRICING)} 
-            >
-              Lihat Harga
-            </Button>
+        <div className="relative overflow-hidden rounded-3xl bg-[#051C48] p-10 text-center sm:p-20 shadow-2xl">
+          {/* Subtle tech background for CTA */}
+          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#1566D1]/30 blur-[80px]" />
+          <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[#1566D1]/20 blur-[80px]" />
+          
+          <div className="relative z-10">
+            <h2 className="text-balance text-4xl font-black text-white sm:text-6xl tracking-tight">
+              Siap membangun <span className="editorial-accent text-[#7fb0f5]">inovasi</span> Anda?
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-base font-medium text-slate-300 sm:text-lg">
+              Mari wujudkan visi Anda menjadi produk perangkat lunak tangguh. Konsultasi bebas biaya dengan tim ahli kami.
+            </p>
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Button size="lg" className="w-full sm:w-auto bg-[#1566D1] text-white hover:bg-[#124691] border-none" onClick={() => navigate(ROUTES.CONTACT)} icon={Send}>
+                Mulai Diskusi Proyek
+              </Button>
+              <Button size="lg" className="w-full sm:w-auto bg-white/10 text-white border border-white/20 hover:bg-white/20" onClick={() => navigate(ROUTES.PRICING)}>
+                Lihat Skema Harga
+              </Button>
+            </div>
           </div>
         </div>
       </Reveal>
@@ -904,8 +922,8 @@ export const HomePage = ({ data, navigate }) => (
 );
 
 const PageHero = ({ eyebrow, title, description }) => (
-  <section className="relative pt-36 pb-20 sm:pt-48 border-b border-slate-900/10 dark:border-white/10">
-    <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
+  <section className="relative pt-40 pb-16">
+    <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
       <SectionHeading eyebrow={eyebrow} title={title} description={description} />
     </div>
   </section>
@@ -917,107 +935,115 @@ export const AboutPage = ({ data, navigate }) => {
     {
       icon: Target,
       title: 'Berorientasi Hasil',
-      desc: 'Setiap keputusan desain dan teknis kami ukur dampaknya terhadap bisnis.',
+      desc: 'Setiap keputusan teknis dan desain kami ukur dampaknya secara objektif terhadap bisnis Anda.',
     },
     {
       icon: Lightbulb,
-      title: 'Inovatif',
-      desc: 'Mengeksplorasi batas teknologi untuk solusi yang relevan dengan masa depan.',
+      title: 'Inovasi Presisi',
+      desc: 'Mengeksplorasi batas teknologi untuk solusi canggih yang relevan dengan masa depan.',
     },
     {
       icon: Heart,
-      title: 'Berdedikasi',
-      desc: 'Kami memperlakukan setiap baris kode seperti produk kami sendiri.',
+      title: 'Dedikasi Tinggi',
+      desc: 'Kami memperlakukan setiap baris kode dan komponen antarmuka layaknya produk kami sendiri.',
     },
     {
       icon: Award,
-      title: 'Berkualitas',
-      desc: 'Standar tinggi pada rekayasa perangkat lunak tanpa ruang untuk kompromi.',
+      title: 'Kualitas Absolut',
+      desc: 'Standar tinggi pada rekayasa perangkat lunak tanpa memberikan ruang untuk kompromi.',
     },
   ];
   return (
     <>
       <PageHero
         eyebrow="Tentang Kami"
-        title="Filosofi Digital"
-        description="Kami adalah agensi creative technology yang mengawinkan rekayasa perangkat lunak dengan presisi desain editorial."
+        title="Arsitek Inovasi Digital"
+        description="Agensi creative technology yang mengawinkan rekayasa perangkat lunak canggih dengan desain antarmuka premium."
       />
-      <section className="py-24 border-b border-slate-900/10 dark:border-white/10">
-        <div className="mx-auto grid max-w-7xl px-4 sm:px-6 lg:grid-cols-2">
+      <section className="py-12">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2">
           <Reveal>
-            <div className="h-full p-8 sm:p-12 border-b lg:border-b-0 lg:border-r border-slate-900/10 dark:border-white/10 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/30">
-              <h3 className="text-3xl font-black tracking-tighter text-slate-900 dark:text-white">Visi <span className="editorial-accent text-slate-500">Utama</span></h3>
-              <p className="mt-6 text-sm sm:text-base font-medium leading-relaxed text-slate-500 dark:text-slate-400">
-                Menjadi standar emas praktik creative technology di Indonesia dengan menghadirkan solusi perangkat lunak yang tak hanya fungsional, tetapi menawan secara estetika dan fundamental bisnis.
+            <GlassCard hover={false} className="h-full">
+              <div className="mb-6 inline-flex rounded-2xl bg-[#1566D1]/10 p-4 text-[#1566D1]">
+                <Target className="h-7 w-7" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Visi Utama</h3>
+              <p className="mt-4 text-base font-medium leading-relaxed text-slate-600 dark:text-slate-400">
+                Menjadi standar emas praktik creative technology di Indonesia dengan menghadirkan solusi perangkat lunak yang tak hanya fungsional, tetapi menawan secara estetika dan fundamental bagi bisnis.
               </p>
-            </div>
+            </GlassCard>
           </Reveal>
           <Reveal delay={120}>
-            <div className="h-full p-8 sm:p-12 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/30">
-              <h3 className="text-3xl font-black tracking-tighter text-slate-900 dark:text-white">Misi <span className="editorial-accent text-slate-500">Kami</span></h3>
-              <p className="mt-6 text-sm sm:text-base font-medium leading-relaxed text-slate-500 dark:text-slate-400">
+            <GlassCard hover={false} className="h-full">
+              <div className="mb-6 inline-flex rounded-2xl bg-[#1566D1]/10 p-4 text-[#1566D1]">
+                <Rocket className="h-7 w-7" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Misi Kami</h3>
+              <p className="mt-4 text-base font-medium leading-relaxed text-slate-600 dark:text-slate-400">
                 Merekayasa pengalaman digital berkualitas enterprise yang mengutamakan kecepatan performa, keamanan arsitektur, dan kesederhanaan alur pengguna di setiap iterasi pengerjaan.
               </p>
-            </div>
+            </GlassCard>
           </Reveal>
         </div>
       </section>
-      <section className="py-24 border-b border-slate-900/10 dark:border-white/10">
+      <section className="py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <SectionHeading eyebrow="Nilai Perusahaan" title="Prinsip Kerja" />
-          <div className="mt-16 grid border-t border-l border-slate-900/10 dark:border-white/10 sm:grid-cols-2 lg:grid-cols-4">
+          <SectionHeading eyebrow="Nilai Perusahaan" title="Prinsip Kerja Eksekusi" />
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => {
               const Icon = v.icon || Boxes;
               return (
                 <Reveal key={v.title} delay={i * 80}>
-                  <div className="h-full p-8 border-r border-b border-slate-900/10 dark:border-white/10 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/30">
-                    <Icon className="h-5 w-5 mb-6 text-slate-900 dark:text-white" />
-                    <h3 className="text-xl font-black tracking-tighter text-slate-900 dark:text-white">{v.title}</h3>
+                  <GlassCard className="h-full text-center">
+                    <div className="mx-auto mb-5 inline-flex rounded-2xl bg-[#1566D1] p-3.5 text-white shadow-lg shadow-[#1566D1]/30">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">{v.title}</h3>
                     <p className="mt-3 text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">{v.desc}</p>
-                  </div>
+                  </GlassCard>
                 </Reveal>
               );
             })}
           </div>
         </div>
       </section>
-      <section className="py-24">
+      <section className="py-20 bg-slate-50/50 dark:bg-[#030F26]/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeading
             eyebrow="Tim Inti"
-            title="Arsitek di Balik Viska"
-            description="Tim ramping berkinerja tinggi yang menggabungkan keahlian engineering dan product strategy."
+            title="Orang-orang di Balik Viska"
+            description="Tim ramping berkinerja tinggi yang menggabungkan keahlian mendalam di bidang engineering dan product strategy."
           />
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((m, i) => (
               <Reveal key={m.id} delay={i * 80}>
-                <div className="group flex h-full flex-col text-left">
-                  <div className="relative mb-6 aspect-[4/5] w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+                <GlassCard hover={false} className="group h-full flex flex-col items-center text-center !p-6">
+                  <div className="relative mb-6 h-28 w-28 overflow-hidden rounded-full border-4 border-slate-100 dark:border-slate-800 shadow-xl">
                     <img
                       src={m.photo_url}
                       alt={m.name}
                       loading="lazy"
-                      className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
-                  <h3 className="text-lg font-black tracking-tighter uppercase text-slate-900 dark:text-white">{m.name}</h3>
-                  <p className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-500 mt-1">{m.role}</p>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">{m.name}</h3>
+                  <p className="mt-1 text-sm font-bold text-[#1566D1] dark:text-[#7fb0f5]">{m.role}</p>
                   <p className="mt-4 flex-1 text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">
                     {m.bio}
                   </p>
-                  <div className="mt-6 flex items-center gap-3 border-t border-slate-900/10 dark:border-white/10 pt-4">
+                  <div className="mt-6 flex items-center gap-3">
                     {m.instagram_url && (
-                      <a href={formatSocialLink(m.instagram_url, 'instagram')} target="_blank" rel="noreferrer" className="text-slate-400 transition hover:text-slate-900 dark:hover:text-white">
+                      <a href={formatSocialLink(m.instagram_url, 'instagram')} target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-colors hover:bg-pink-500 hover:text-white dark:bg-slate-800 dark:text-slate-400">
                         {Instagram && <Instagram className="h-4 w-4" />}
                       </a>
                     )}
                     {m.linkedin_url && (
-                      <a href={formatSocialLink(m.linkedin_url, 'linkedin')} target="_blank" rel="noreferrer" className="text-slate-400 transition hover:text-slate-900 dark:hover:text-white">
+                      <a href={formatSocialLink(m.linkedin_url, 'linkedin')} target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-colors hover:bg-[#0A66C2] hover:text-white dark:bg-slate-800 dark:text-slate-400">
                         {Linkedin && <Linkedin className="h-4 w-4" />}
                       </a>
                     )}
                   </div>
-                </div>
+                </GlassCard>
               </Reveal>
             ))}
           </div>
@@ -1035,46 +1061,48 @@ export const ServicesPage = ({ data, navigate }) => {
       <PageHero
         eyebrow="Praktik & Keahlian"
         title="Layanan Terspesialisasi"
-        description="Solusi rekayasa perangkat lunak menyeluruh, dari arsitektur backend hingga presisi antarmuka."
+        description="Solusi rekayasa perangkat lunak menyeluruh, dari arsitektur backend hingga keindahan visual antarmuka."
       />
-      <section className="py-24 border-b border-slate-900/10 dark:border-white/10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="border-t border-slate-900/10 dark:border-white/10">
-            {services.map((s, i) => (
-              <Reveal key={s.id} delay={(i % 3) * 80}>
-                <div className="grid gap-8 md:grid-cols-3 border-b border-slate-900/10 dark:border-white/10 py-12 sm:py-16 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/30 sm:px-8">
-                  <div className="flex flex-col items-start">
-                    <ServiceIcon name={s.icon_name} className="h-8 w-8 text-slate-900 dark:text-white mb-6" />
-                    <h3 className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">{s.name}</h3>
-                    <p className="mt-3 text-sm font-medium text-slate-500 dark:text-slate-400">
-                      {s.short_description}
-                    </p>
+      <section className="py-12">
+        <div className="mx-auto max-w-7xl space-y-8 px-4 sm:px-6">
+          {services.map((s, i) => (
+            <Reveal key={s.id} delay={(i % 3) * 80}>
+              <GlassCard className="grid gap-8 md:grid-cols-3" hover={false}>
+                <div className="flex flex-col items-start">
+                  <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1566D1]/10 text-[#1566D1]">
+                    <ServiceIcon name={s.icon_name} className="h-8 w-8" />
                   </div>
-                  <div className="md:col-span-2">
-                    <p className="text-base font-medium leading-relaxed text-slate-600 dark:text-slate-300 whitespace-pre-line">
-                      {s.full_description}
-                    </p>
-                    <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-                      {(s.features || []).map((f, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
-                          <Check className="h-4 w-4 mt-0.5 text-slate-900 dark:text-white shrink-0" />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-12 flex flex-col sm:flex-row gap-4">
-                      <Button onClick={() => navigate(ROUTES.PRICING)}>
-                        Lihat Skema Harga
-                      </Button>
-                      <Button variant="outline" onClick={() => navigate(ROUTES.CONTACT)}>
-                        Mulai Diskusi
-                      </Button>
-                    </div>
+                  <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">{s.name}</h3>
+                  <p className="mt-3 text-sm font-medium text-slate-500 dark:text-slate-400">
+                    {s.short_description}
+                  </p>
+                </div>
+                <div className="md:col-span-2">
+                  <p className="text-base font-medium leading-relaxed text-slate-600 dark:text-slate-300 whitespace-pre-line">
+                    {s.full_description}
+                  </p>
+                  <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+                    {(s.features || []).map((f, idx) => (
+                      <li key={idx} className="flex items-center gap-3 text-sm font-bold text-slate-700 dark:text-slate-200">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
+                          <Check className="h-3.5 w-3.5" />
+                        </span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                    <Button onClick={() => navigate(ROUTES.PRICING)} icon={Tag}>
+                      Lihat Skema Harga
+                    </Button>
+                    <Button variant="outline" onClick={() => navigate(ROUTES.CONTACT)}>
+                      Mulai Diskusi
+                    </Button>
                   </div>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              </GlassCard>
+            </Reveal>
+          ))}
         </div>
       </section>
       <CtaSection navigate={navigate} />
@@ -1109,13 +1137,13 @@ export const PortfolioPage = ({ data, navigate }) => {
   return (
     <>
       <PageHero
-        eyebrow="Arsip"
-        title="Karya Terseleksi"
-        description="Eksplorasi implementasi rekayasa perangkat lunak dan desain antarmuka dari berbagai industri."
+        eyebrow="Karya Kami"
+        title="Arsip Proyek Digital"
+        description="Eksplorasi implementasi rekayasa perangkat lunak dan desain antarmuka canggih dari berbagai industri."
       />
-      <section className="py-12 border-b border-slate-900/10 dark:border-white/10">
+      <section className="py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="sticky top-[80px] z-30 flex flex-col gap-6 bg-[#F9F9F8] dark:bg-[#0A0A0B] pb-6 pt-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-900/10 dark:border-white/10">
+          <GlassCard className="sticky top-24 z-30 mb-12 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between !p-4" hover={false}>
             <div className="flex flex-wrap gap-2">
               {PORTFOLIO_CATEGORIES.map((c) => (
                 <button
@@ -1125,10 +1153,10 @@ export const PortfolioPage = ({ data, navigate }) => {
                     setVisibleCount(6);
                   }}
                   className={classNames(
-                    'rounded-none px-4 py-2 text-[0.65rem] font-bold uppercase tracking-widest transition-colors border',
+                    'rounded-full px-4 py-2 text-xs font-bold transition-all duration-300',
                     category === c
-                      ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-900'
-                      : 'border-slate-900/20 text-slate-500 hover:border-slate-900 dark:border-white/20 dark:text-slate-400 dark:hover:border-white'
+                      ? 'bg-[#1566D1] text-white shadow-md shadow-[#1566D1]/30'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                   )}
                 >
                   {c}
@@ -1140,39 +1168,38 @@ export const PortfolioPage = ({ data, navigate }) => {
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Cari arsip proyek..."
-                className={classNames(inputClass, 'pl-12')}
+                placeholder="Cari proyek atau klien..."
+                className={classNames(inputClass, 'pl-11 rounded-full')}
               />
             </div>
-          </div>
+          </GlassCard>
 
           {visible.length ? (
-            <div className="mt-16 columns-1 gap-8 sm:columns-2 lg:columns-3">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {visible.map((p, i) => (
-                <div key={p.id} className="mb-12 break-inside-avoid block w-full">
-                  <PortfolioCard item={p} navigate={navigate} delay={(i % 3) * 80} />
-                </div>
+                <PortfolioCard key={p.id} item={p} navigate={navigate} delay={(i % 3) * 80} />
               ))}
             </div>
           ) : (
-            <div className="mt-16">
+            <div className="mt-12">
               <EmptyState
                 icon={Search}
-                title="Arsip tidak ditemukan"
-                description="Gunakan kata kunci atau kategori yang berbeda."
+                title="Proyek tidak ditemukan"
+                description="Coba gunakan kategori atau kata kunci pencarian yang lain."
               />
             </div>
           )}
 
           {visibleCount < filtered.length && (
-            <div className="mt-16 text-center border-t border-slate-900/10 dark:border-white/10 pt-16">
-              <Button variant="outline" onClick={() => setVisibleCount((c) => c + 6)}>
-                Muat Lebih Banyak
+            <div className="mt-16 text-center">
+              <Button variant="outline" onClick={() => setVisibleCount((c) => c + 6)} icon={Plus}>
+                Muat Lebih Banyak Karya
               </Button>
             </div>
           )}
         </div>
       </section>
+      <CtaSection navigate={navigate} />
     </>
   );
 };
@@ -1191,9 +1218,9 @@ export const PortfolioDetailPage = ({ data, navigate, params }) => {
           <EmptyState
             icon={FolderKanban}
             title="Proyek tidak ditemukan"
-            description="Arsip yang Anda cari telah dipindahkan atau dihapus dari sistem."
+            description="Arsip yang Anda cari mungkin telah dipindahkan atau dihapus."
             action={
-              <Button onClick={() => navigate(ROUTES.PORTFOLIO)}>
+              <Button onClick={() => navigate(ROUTES.PORTFOLIO)} icon={ArrowLeft}>
                 Kembali ke Arsip
               </Button>
             }
@@ -1210,45 +1237,38 @@ export const PortfolioDetailPage = ({ data, navigate, params }) => {
 
   return (
     <>
-      <section className="pt-36 pb-16 sm:pt-48 border-b border-slate-900/10 dark:border-white/10">
+      <section className="pt-40 pb-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <button
             onClick={() => navigate(ROUTES.PORTFOLIO)}
-            className="mb-10 inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-slate-500 transition hover:text-[#1566D1] dark:text-slate-400 dark:hover:text-[#7fb0f5]"
           >
-            <ArrowLeft className="h-3 w-3" /> Kembali ke Indeks
+            <ArrowLeft className="h-4 w-4" /> Kembali ke Indeks
           </button>
           <Reveal>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-500 border border-slate-900/20 dark:border-white/20 px-3 py-1">
-                {item.category}
-              </span>
-              <span className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-500">
-                {new Date(item.completed_at || Date.now()).getFullYear()}
-              </span>
-            </div>
-            <h1 className="text-4xl font-black tracking-tighter text-slate-900 dark:text-white sm:text-6xl lg:text-7xl">
+            <Badge className="mb-6 px-3 py-1.5 shadow-sm">{item.category}</Badge>
+            <h1 className="text-4xl font-black tracking-tight text-slate-900 dark:text-white sm:text-6xl">
               {item.title}
             </h1>
-            <p className="mt-8 max-w-3xl text-lg font-medium leading-relaxed text-slate-600 dark:text-slate-300">
+            <p className="mt-6 max-w-3xl text-lg font-medium leading-relaxed text-slate-600 dark:text-slate-300">
               {item.short_description}
             </p>
           </Reveal>
         </div>
       </section>
       
-      <section className="pb-16 border-b border-slate-900/10 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/50 pt-16">
+      <section className="pb-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <Reveal>
             <div
-              className="mx-auto overflow-hidden bg-slate-200 dark:bg-slate-800 shadow-xl"
+              className="mx-auto overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-800 shadow-2xl"
               style={{ maxWidth: item.category === 'Mobile App' ? '400px' : '100%' }}
             >
               <img
                 src={gallery[activeImage]}
                 alt={item.title}
                 className={classNames(
-                  'w-full object-cover grayscale transition-all duration-700 hover:grayscale-0',
+                  'w-full object-cover transition-transform duration-700 hover:scale-105',
                   item.category === 'Mobile App' ? 'aspect-[4/5]' : 'aspect-video'
                 )}
               />
@@ -1260,10 +1280,10 @@ export const PortfolioDetailPage = ({ data, navigate, params }) => {
                     key={i}
                     onClick={() => setActiveImage(i)}
                     className={classNames(
-                      'h-20 w-28 sm:h-24 sm:w-36 flex-shrink-0 overflow-hidden transition-all duration-300 border',
+                      'h-20 w-28 sm:h-24 sm:w-36 flex-shrink-0 overflow-hidden rounded-2xl transition-all duration-300 border-2',
                       i === activeImage
-                        ? 'border-slate-900 dark:border-white grayscale-0'
-                        : 'border-slate-900/20 dark:border-white/20 grayscale opacity-60 hover:opacity-100 hover:grayscale-0'
+                        ? 'border-[#1566D1] shadow-lg shadow-[#1566D1]/30 opacity-100 scale-100'
+                        : 'border-transparent opacity-60 hover:opacity-100 hover:scale-105'
                     )}
                   >
                     <img src={img} alt="" className="h-full w-full object-cover" />
@@ -1275,33 +1295,31 @@ export const PortfolioDetailPage = ({ data, navigate, params }) => {
         </div>
       </section>
       
-      <section className="py-24 border-b border-slate-900/10 dark:border-white/10">
-        <div className="mx-auto grid max-w-5xl gap-16 px-4 sm:px-6 lg:grid-cols-3">
+      <section className="py-16">
+        <div className="mx-auto grid max-w-5xl gap-12 px-4 sm:px-6 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white mb-8">
-              Konteks <span className="editorial-accent text-slate-400">Proyek</span>
-            </h2>
-            <p className="leading-relaxed text-slate-600 dark:text-slate-300 whitespace-pre-line font-medium">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Konteks Proyek</h2>
+            <p className="text-base font-medium leading-relaxed text-slate-600 dark:text-slate-300 whitespace-pre-line">
               {item.full_description}
             </p>
           </div>
           <aside>
-            <div className="p-8 border border-slate-900/10 dark:border-white/10 bg-slate-50 dark:bg-slate-800/20">
-              <h3 className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-400 mb-8 border-b border-slate-900/10 dark:border-white/10 pb-4">
-                Metrik & Info
+            <GlassCard hover={false} className="sticky top-32">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-6">
+                Informasi Proyek
               </h3>
-              <dl className="space-y-6 text-sm">
-                <div>
-                  <dt className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-400 mb-1">Klien</dt>
-                  <dd className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <Building2 className="h-4 w-4" /> {item.client_name || '-'}
-                  </dd>
+              <dl className="space-y-5 text-sm">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1566D1]/10 text-[#1566D1]">
+                    <Building2 className="h-4 w-4" />
+                  </div>
+                  <span className="font-bold text-slate-900 dark:text-white">{item.client_name || '-'}</span>
                 </div>
-                <div>
-                  <dt className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-400 mb-1">Penyelesaian</dt>
-                  <dd className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <Calendar className="h-4 w-4" /> {formatDate(item.completed_at)}
-                  </dd>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1566D1]/10 text-[#1566D1]">
+                    <Calendar className="h-4 w-4" />
+                  </div>
+                  <span className="font-bold text-slate-900 dark:text-white">{formatDate(item.completed_at)}</span>
                 </div>
                 {item.project_url && (
                   <div className="pt-2">
@@ -1309,47 +1327,43 @@ export const PortfolioDetailPage = ({ data, navigate, params }) => {
                       href={item.project_url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-slate-900 dark:text-white hover:underline underline-offset-4"
+                      className="inline-flex items-center gap-2 font-bold text-[#1566D1] hover:underline underline-offset-4"
                     >
-                      <ExternalLink className="h-3 w-3" /> Kunjungi Proyek
+                      <ExternalLink className="h-4 w-4" /> Kunjungi Aplikasi
                     </a>
                   </div>
                 )}
               </dl>
-              <div className="mt-8 pt-8 border-t border-slate-900/10 dark:border-white/10">
-                <h4 className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-400 mb-4">
-                  Tumpukan Teknologi (Tech Stack)
+              <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">
+                  Tumpukan Teknologi
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {(item.tech_stack || []).map((t) => (
                     <span
                       key={t}
-                      className="border border-slate-900/20 dark:border-white/20 px-2 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-300"
+                      className="rounded-lg bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-300"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
               </div>
-              <Button className="mt-10 w-full" onClick={() => navigate(ROUTES.CONTACT)}>
-                Inisiasi Proyek Serupa
+              <Button className="mt-8 w-full" onClick={() => navigate(ROUTES.CONTACT)}>
+                Bangun Proyek Serupa
               </Button>
-            </div>
+            </GlassCard>
           </aside>
         </div>
       </section>
       
       {related.length > 0 && (
-        <section className="py-24">
+        <section className="py-20 bg-slate-50/50 dark:bg-[#030F26]/50">
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <div className="flex items-center justify-between mb-16 border-b border-slate-900/10 dark:border-white/10 pb-6">
-              <h2 className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Arsip Terkait</h2>
-            </div>
-            <div className="columns-1 gap-8 sm:columns-2 lg:columns-3">
+            <h2 className="mb-10 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Proyek Terkait</h2>
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((p, i) => (
-                <div key={p.id} className="mb-12 break-inside-avoid block w-full">
-                  <PortfolioCard item={p} navigate={navigate} delay={i * 80} />
-                </div>
+                <PortfolioCard key={p.id} item={p} navigate={navigate} delay={i * 80} />
               ))}
             </div>
           </div>
@@ -1364,36 +1378,34 @@ export const PricingPage = ({ data, navigate }) => {
   return (
     <>
       <PageHero
-        eyebrow="Harga"
-        title="Investasi Transparan"
-        description="Pilih skema biaya yang sesuai skala proyek Anda. Tanpa biaya tersembunyi, sepenuhnya terukur."
+        eyebrow="Investasi"
+        title="Skema Harga Transparan"
+        description="Pilih struktur biaya yang sesuai skala pertumbuhan bisnis Anda. Terukur, jelas, dan tanpa kejutan."
       />
-      <section className="py-24 border-b border-slate-900/10 dark:border-white/10">
+      <section className="py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="grid items-stretch gap-0 border border-slate-900/10 dark:border-white/10 lg:grid-cols-3">
+          <div className="grid items-stretch gap-8 lg:grid-cols-3">
             {packages.map((pkg, i) => (
               <Reveal key={pkg.id} delay={i * 100}>
-                <div
+                <GlassCard
+                  hover={false}
                   className={classNames(
-                    'relative flex h-full flex-col p-8 sm:p-12 transition-colors',
-                    pkg.is_highlighted
-                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xl'
-                      : 'bg-transparent text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/30',
-                    i !== 0 && 'border-t lg:border-t-0 lg:border-l border-slate-900/10 dark:border-white/10'
+                    'relative flex h-full flex-col !p-8 transition-transform duration-500',
+                    pkg.is_highlighted ? 'border-2 border-[#1566D1] shadow-2xl shadow-[#1566D1]/20 lg:-translate-y-4' : 'hover:-translate-y-2'
                   )}
                 >
                   {pkg.is_highlighted && (
-                    <div className="absolute top-0 right-0 bg-white text-slate-900 dark:bg-slate-900 dark:text-white px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest border-b border-l border-slate-900/10 dark:border-white/10">
-                      Populer
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-[#1566D1] px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white shadow-lg shadow-[#1566D1]/30">
+                      Rekomendasi
                     </div>
                   )}
-                  <h3 className="text-lg font-black uppercase tracking-tight">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                     {pkg.name}
                   </h3>
-                  <p className="mt-4 text-3xl sm:text-4xl font-black tracking-tighter">
+                  <p className="mt-4 text-3xl font-black tracking-tighter text-slate-900 dark:text-white sm:text-4xl">
                     {formatPriceRange(pkg)}
                   </p>
-                  <ul className="mt-10 flex-1 space-y-4">
+                  <ul className="mt-8 flex-1 space-y-4">
                     {(pkg.features || []).map((f, idx) => (
                       <li
                         key={idx}
@@ -1402,33 +1414,37 @@ export const PricingPage = ({ data, navigate }) => {
                           !f.is_included && 'opacity-40'
                         )}
                       >
-                        <span className="mt-0.5">
-                          {f.is_included ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
+                        <span
+                          className={classNames(
+                            'mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full',
+                            f.is_included ? 'bg-emerald-500/10 text-emerald-500' : 'bg-slate-200 text-slate-400 dark:bg-slate-700'
+                          )}
+                        >
+                          {f.is_included ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
                         </span>
-                        <span>{f.feature_text}</span>
+                        <span className="text-slate-700 dark:text-slate-300">{f.feature_text}</span>
                       </li>
                     ))}
                   </ul>
                   <Button
                     className="mt-10 w-full"
-                    variant={pkg.is_highlighted ? (document.documentElement.classList.contains('dark') ? 'primary' : 'outline') : 'outline'}
-                    style={pkg.is_highlighted && !document.documentElement.classList.contains('dark') ? { borderColor: 'white', color: 'white' } : {}}
+                    variant={pkg.is_highlighted ? 'primary' : 'outline'}
                     onClick={() => navigate(ROUTES.CONTACT)}
                   >
-                    {pkg.cta_label || 'Konsultasi Sekarang'}
+                    {pkg.cta_label || 'Pilih Paket Ini'}
                   </Button>
-                </div>
+                </GlassCard>
               </Reveal>
             ))}
           </div>
           <Reveal>
-            <p className="mt-12 text-center text-sm font-medium text-slate-500 dark:text-slate-400">
-              Membangun platform custom berskala besar?{' '}
+            <p className="mt-16 text-center text-sm font-medium text-slate-500 dark:text-slate-400">
+              Membangun sistem berskala enterprise yang sangat spesifik?{' '}
               <button
                 onClick={() => navigate(ROUTES.CONTACT)}
-                className="font-bold text-slate-900 dark:text-white hover:underline underline-offset-4"
+                className="font-bold text-[#1566D1] hover:underline underline-offset-4"
               >
-                Diskusikan model enterprise →
+                Diskusikan kebutuhan custom →
               </button>
             </p>
           </Reveal>
@@ -1436,7 +1452,7 @@ export const PricingPage = ({ data, navigate }) => {
       </section>
       <FaqSection
         items={data.faq_items.filter((f) => f.category === 'Pricing')}
-        title="Pertanyaan Seputar Biaya"
+        title="FAQ Skema Biaya"
       />
       <CtaSection navigate={navigate} />
     </>
@@ -1448,9 +1464,9 @@ export const TestimonialsPage = ({ data, navigate }) => {
   return (
     <>
       <PageHero
-        eyebrow="Testimoni"
-        title="Apa Kata Klien Kami"
-        description="Kepercayaan klien adalah pencapaian terbesar kami. Inilah cerita mereka."
+        eyebrow="Kredibilitas"
+        title="Kepercayaan Klien"
+        description="Bagi kami, kesuksesan diukur dari dampak yang dihasilkan oleh produk kami terhadap bisnis klien."
       />
       <section className="py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -1459,28 +1475,28 @@ export const TestimonialsPage = ({ data, navigate }) => {
               {approved.map((t, i) => (
                 <Reveal key={t.id} delay={(i % 3) * 80}>
                   <GlassCard className="flex h-full flex-col">
-                    <Quote className="h-8 w-8 text-[#1566D1]/40" />
-                    <p className="mt-3 flex-1 leading-relaxed text-slate-700 dark:text-slate-200">
-                      “{t.content}”
+                    <Quote className="h-8 w-8 text-[#1566D1]/30" />
+                    <p className="mt-4 flex-1 text-base font-medium leading-relaxed text-slate-700 dark:text-slate-300">
+                      “<span className="editorial-accent">{t.content}</span>”
                     </p>
-                    <div className="mt-5 flex items-center gap-3 border-t border-slate-200/60 dark:border-white/10 pt-4">
+                    <div className="mt-8 flex items-center gap-4 border-t border-slate-100 dark:border-white/10 pt-6">
                       {t.client_photo_url && (
                         <img
                           src={t.client_photo_url}
                           alt={t.client_name}
                           loading="lazy"
-                          className="h-11 w-11 rounded-full object-cover"
+                          className="h-12 w-12 rounded-full border-2 border-white object-cover shadow-sm dark:border-[#030F26]"
                         />
                       )}
                       <div className="flex-1">
                         <p className="font-bold text-slate-900 dark:text-white">{t.client_name}</p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                        <p className="mt-0.5 text-xs font-bold text-[#1566D1] dark:text-[#7fb0f5]">
                           {t.client_title}
-                          {t.client_company ? `, ${t.client_company}` : ''}
+                          {t.client_company ? ` · ${t.client_company}` : ''}
                         </p>
                       </div>
                     </div>
-                    <div className="mt-3">
+                    <div className="mt-4">
                       <StarRating value={t.rating} />
                     </div>
                   </GlassCard>
@@ -1490,7 +1506,7 @@ export const TestimonialsPage = ({ data, navigate }) => {
           ) : (
             <EmptyState
               icon={MessageSquare}
-              title="Belum ada testimoni"
+              title="Belum ada ulasan"
               description="Testimoni klien akan ditampilkan di sini."
             />
           )}
@@ -1502,19 +1518,16 @@ export const TestimonialsPage = ({ data, navigate }) => {
 };
 
 const FaqAccordionItem = ({ item, open, onToggle }) => (
-  <div className="border-b border-slate-900/10 dark:border-white/10 group">
+  <GlassCard hover={false} className="!p-0 overflow-hidden mb-4 transition-all">
     <button
       onClick={onToggle}
       aria-expanded={open}
-      className="flex w-full items-center justify-between gap-4 py-6 text-left outline-none transition-colors group-hover:text-slate-500"
+      className="flex w-full items-center justify-between gap-4 p-6 text-left outline-none transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
     >
-      <span className="font-bold text-slate-900 dark:text-white sm:text-lg tracking-tight transition-colors">{item.question}</span>
-      <Plus
-        className={classNames(
-          'h-5 w-5 flex-shrink-0 text-slate-900 dark:text-white transition-transform duration-300',
-          open && 'rotate-45'
-        )}
-      />
+      <span className="font-bold text-slate-900 dark:text-white sm:text-lg">{item.question}</span>
+      <div className={classNames("flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-300 dark:bg-slate-800 dark:text-slate-400", open && "rotate-45 bg-[#1566D1] text-white dark:bg-[#1566D1] dark:text-white")}>
+        <Plus className="h-4 w-4" />
+      </div>
     </button>
     <div
       className={classNames(
@@ -1522,25 +1535,25 @@ const FaqAccordionItem = ({ item, open, onToggle }) => (
         open ? 'grid-rows-[1fr] opacity-100 pb-6' : 'grid-rows-[0fr] opacity-0'
       )}
     >
-      <div className="overflow-hidden">
-        <p className="font-medium leading-relaxed text-slate-500 dark:text-slate-400 pr-8">{item.answer}</p>
+      <div className="overflow-hidden px-6">
+        <p className="font-medium leading-relaxed text-slate-600 dark:text-slate-300 pt-2">{item.answer}</p>
       </div>
     </div>
-  </div>
+  </GlassCard>
 );
 
 export const FaqSection = ({ items, title }) => {
   const [openId, setOpenId] = useState(null);
   if (!items?.length) return null;
   return (
-    <section className="py-24">
+    <section className="py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         {title && (
-          <h2 className="mb-12 text-3xl font-black tracking-tighter text-slate-900 dark:text-white sm:text-4xl text-center">
+          <h2 className="mb-10 text-center text-3xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
             {title}
           </h2>
         )}
-        <div className="border-t border-slate-900/10 dark:border-white/10">
+        <div className="space-y-4">
           {items.map((item) => (
             <FaqAccordionItem
               key={item.id}
@@ -1576,29 +1589,29 @@ export const FaqPage = ({ data, navigate }) => {
       <PageHero
         eyebrow="Knowledge Base"
         title="Pertanyaan Umum"
-        description="Eksplorasi jawaban atas pertanyaan seputar layanan dan operasional kami."
+        description="Temukan jawaban mendetail terkait operasional dan prosedur layanan teknis kami."
       />
-      <section className="py-16">
+      <section className="py-12">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="relative mb-8">
-            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Ketik untuk mencari..."
-              className={classNames(inputClass, 'pl-11')}
+              placeholder="Cari topik yang ingin Anda ketahui..."
+              className={classNames(inputClass, 'pl-12 !rounded-2xl !h-14 shadow-sm')}
             />
           </div>
-          <div className="mb-12 flex flex-wrap gap-2 border-b border-slate-900/10 dark:border-white/10 pb-6">
+          <div className="mb-10 flex flex-wrap justify-center gap-2">
             {categories.map((c) => (
               <button
                 key={c}
                 onClick={() => setCategory(c)}
                 className={classNames(
-                  'rounded-none px-4 py-2 text-[0.65rem] font-bold uppercase tracking-widest transition-colors border',
+                  'rounded-full px-4 py-2 text-xs font-bold transition-all',
                   category === c
-                    ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-900'
-                    : 'border-slate-900/20 text-slate-500 hover:border-slate-900 dark:border-white/20 dark:text-slate-400 dark:hover:border-white'
+                    ? 'bg-[#1566D1] text-white shadow-md'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                 )}
               >
                 {c}
@@ -1606,7 +1619,7 @@ export const FaqPage = ({ data, navigate }) => {
             ))}
           </div>
           {filtered.length ? (
-            <div className="border-t border-slate-900/10 dark:border-white/10">
+            <div>
               {filtered.map((item) => (
                 <FaqAccordionItem
                   key={item.id}
@@ -1617,7 +1630,7 @@ export const FaqPage = ({ data, navigate }) => {
               ))}
             </div>
           ) : (
-            <EmptyState icon={HelpCircle} title="Tidak ditemukan jawaban." />
+            <EmptyState icon={HelpCircle} title="Informasi tidak ditemukan." />
           )}
         </div>
       </section>
@@ -1650,10 +1663,10 @@ export const ContactPage = ({ data, crud }) => {
 
   const validate = () => {
     const e = {};
-    if (!form.full_name.trim()) e.full_name = 'Wajib diisi';
-    if (!form.email.trim()) e.email = 'Wajib diisi';
-    else if (!isValidEmail(form.email)) e.email = 'Format salah';
-    if (!form.message.trim()) e.message = 'Pesan wajib diisi';
+    if (!form.full_name.trim()) e.full_name = 'Identitas wajib diisi';
+    if (!form.email.trim()) e.email = 'Email wajib diisi';
+    else if (!isValidEmail(form.email)) e.email = 'Format email tidak sesuai';
+    if (!form.message.trim()) e.message = 'Deskripsi proyek wajib diisi';
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -1671,78 +1684,83 @@ export const ContactPage = ({ data, crud }) => {
       });
       setSubmitted(true);
       setForm(empty);
-      toast?.success('Berhasil terkirim.');
+      toast?.success('Data berhasil masuk ke sistem kami.');
     } catch {
-      toast?.error('Gagal terkirim.');
+      toast?.error('Gagal mengirim formulir.');
     } finally {
       setSubmitting(false);
     }
   };
 
   const contactItems = [
-    { label: 'Email', value: settings.contact_email || BRAND.email, copy: settings.contact_email || BRAND.email },
-    { label: 'WhatsApp', value: `+${settings.whatsapp_number || BRAND.whatsapp}`, copy: settings.whatsapp_number || BRAND.whatsapp },
-    { label: 'Kantor', value: settings.address || BRAND.address },
-    { label: 'Operasional', value: settings.operating_hours || BRAND.hours },
+    { icon: Mail, label: 'Email Resmi', value: settings.contact_email || BRAND.email, copy: settings.contact_email || BRAND.email },
+    { icon: Phone, label: 'Jalur WhatsApp', value: `+${settings.whatsapp_number || BRAND.whatsapp}`, copy: settings.whatsapp_number || BRAND.whatsapp },
+    { icon: MapPin, label: 'Alamat Operasional', value: settings.address || BRAND.address },
+    { icon: Clock, label: 'Jam Kerja', value: settings.operating_hours || BRAND.hours },
   ];
 
   return (
     <>
       <PageHero
-        eyebrow="Kontak"
-        title="Inisiasi Proyek"
-        description="Ceritakan visi Anda. Tim kami akan merespons dengan solusi teknis dalam 1×24 jam."
+        eyebrow="Kontak Terpadu"
+        title="Mari Eksekusi Ide Anda"
+        description="Isi form briefing di bawah ini. Tim analis teknis kami akan merespons dalam 1×24 jam kerja."
       />
-      <section className="py-24 border-b border-slate-900/10 dark:border-white/10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="grid lg:grid-cols-5 gap-0 border border-slate-900/10 dark:border-white/10">
-            <div className="lg:col-span-2 p-8 sm:p-12 border-b lg:border-b-0 lg:border-r border-slate-900/10 dark:border-white/10 bg-slate-50 dark:bg-slate-800/20">
-              <Reveal>
-                <h3 className="text-3xl font-black tracking-tighter text-slate-900 dark:text-white mb-10">
-                  Jalur <span className="editorial-accent">Komunikasi</span>
-                </h3>
-                <div className="space-y-8">
-                  {contactItems.map((c) => (
-                    <div key={c.label} className="flex flex-col gap-1 border-b border-slate-900/10 dark:border-white/10 pb-4">
-                      <p className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-400">
+      <section className="py-12">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-5">
+          <div className="lg:col-span-2">
+            <Reveal>
+              <div className="space-y-4">
+                {contactItems.map((c) => (
+                  <GlassCard key={c.label} hover={false} className="flex items-center gap-4 !p-5">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#1566D1]/10 text-[#1566D1]">
+                      <c.icon className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
                         {c.label}
                       </p>
-                      <div className="flex items-start justify-between gap-4 mt-1">
-                        <p className="font-bold text-slate-900 dark:text-white leading-relaxed">{c.value}</p>
-                        {c.copy && (
-                          <button
-                            onClick={async () => {
-                              (await copyToClipboard(c.copy)) && toast?.info('Tersalin');
-                            }}
-                            className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-                          >
-                            <Copy className="h-4 w-4" />
-                          </button>
-                        )}
-                      </div>
+                      <p className="mt-1 truncate font-bold text-slate-900 dark:text-white">{c.value}</p>
                     </div>
-                  ))}
-                </div>
-                <div className="mt-12">
-                  <a href={buildWhatsAppLink(settings.whatsapp_number)} target="_blank" rel="noreferrer" className="block">
-                    <Button className="w-full bg-[#25D366] text-white hover:bg-[#1DA851] border-none" icon={MessageCircle}>
-                      Konsultasi WhatsApp
-                    </Button>
-                  </a>
-                </div>
-              </Reveal>
-            </div>
-            <div className="lg:col-span-3 p-8 sm:p-12 bg-white dark:bg-[#0A0A0B]">
-              <Reveal delay={120}>
+                    {c.copy && (
+                      <button
+                        onClick={async () => {
+                          (await copyToClipboard(c.copy)) && toast?.info('Tersalin ke clipboard');
+                        }}
+                        className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white"
+                      >
+                        <Copy className="h-4 w-4" />
+                      </button>
+                    )}
+                  </GlassCard>
+                ))}
+                <a
+                  href={buildWhatsAppLink(settings.whatsapp_number)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block mt-6"
+                >
+                  <Button className="w-full bg-[#25D366] hover:bg-[#1DA851] text-white border-none" icon={MessageCircle} size="lg">
+                    Konsultasi Langsung via WhatsApp
+                  </Button>
+                </a>
+              </div>
+            </Reveal>
+          </div>
+          <div className="lg:col-span-3">
+            <Reveal delay={120}>
+              <GlassCard hover={false} className="h-full">
                 {submitted ? (
-                  <div className="flex h-full flex-col items-center justify-center py-20 text-center">
-                    <CheckCircle2 className="h-12 w-12 text-slate-900 dark:text-white mb-6" />
-                    <h3 className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Form Diterima.</h3>
-                    <p className="mt-3 max-w-sm text-sm font-medium text-slate-500 dark:text-slate-400">
-                      Visi Anda sudah berada di sistem kami. Kami akan segera menghubungi Anda.
+                  <div className="flex h-full flex-col items-center justify-center py-16 text-center">
+                    <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
+                      <CheckCircle2 className="h-10 w-10" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Briefing Diterima</h3>
+                    <p className="mt-3 max-w-sm text-base font-medium text-slate-500 dark:text-slate-400">
+                      Dokumen briefing proyek Anda telah masuk ke dalam antrean analisis tim Viska Labs.
                     </p>
                     <Button className="mt-8" variant="outline" onClick={() => setSubmitted(false)}>
-                      Kirim Formulir Baru
+                      Kirim Briefing Baru
                     </Button>
                   </div>
                 ) : (
@@ -1750,45 +1768,93 @@ export const ContactPage = ({ data, crud }) => {
                     <fieldset disabled={submitting} className="space-y-6">
                       <div className="grid gap-6 sm:grid-cols-2">
                         <Field label="Nama Lengkap" required error={errors.full_name}>
-                          <Input value={form.full_name} onChange={(e) => setField('full_name', e.target.value)} />
+                          <Input
+                            value={form.full_name}
+                            onChange={(e) => setField('full_name', e.target.value)}
+                            placeholder="John Doe"
+                          />
                         </Field>
-                        <Field label="Email Resmi" required error={errors.email}>
-                          <Input type="email" value={form.email} onChange={(e) => setField('email', e.target.value)} />
+                        <Field label="Alamat Email" required error={errors.email}>
+                          <Input
+                            type="email"
+                            value={form.email}
+                            onChange={(e) => setField('email', e.target.value)}
+                            placeholder="john@perusahaan.com"
+                          />
                         </Field>
                       </div>
                       <div className="grid gap-6 sm:grid-cols-2">
-                        <Field label="WhatsApp">
-                          <Input type="tel" inputMode="numeric" value={form.whatsapp} onChange={(e) => setField('whatsapp', e.target.value)} />
+                        <Field label="No. WhatsAppAktif">
+                          <Input
+                            type="tel"
+                            inputMode="numeric"
+                            value={form.whatsapp}
+                            onChange={(e) => setField('whatsapp', e.target.value)}
+                            placeholder="0812xxxx"
+                          />
                         </Field>
-                        <Field label="Entitas / Perusahaan">
-                          <Input value={form.company} onChange={(e) => setField('company', e.target.value)} />
+                        <Field label="Entitas / Organisasi">
+                          <Input
+                            value={form.company}
+                            onChange={(e) => setField('company', e.target.value)}
+                            placeholder="Nama Perusahaan (Opsional)"
+                          />
                         </Field>
                       </div>
                       <div className="grid gap-6 sm:grid-cols-2">
-                        <Field label="Konsentrasi Layanan">
-                          <Select value={form.service_interest} onChange={(e) => setField('service_interest', e.target.value)}>
-                            <option value="" disabled>— Pilih —</option>
-                            {SERVICE_INTEREST_OPTIONS.map((s) => (<option key={s} value={s}>{s}</option>))}
+                        <Field label="Fokus Layanan">
+                          <Select
+                            value={form.service_interest}
+                            onChange={(e) => setField('service_interest', e.target.value)}
+                          >
+                            <option value="" disabled>
+                              Pilih Konsentrasi
+                            </option>
+                            {SERVICE_INTEREST_OPTIONS.map((s) => (
+                              <option key={s} value={s}>
+                                {s}
+                              </option>
+                            ))}
                           </Select>
                         </Field>
-                        <Field label="Alokasi Anggaran">
-                          <Select value={form.budget_range} onChange={(e) => setField('budget_range', e.target.value)}>
-                            <option value="" disabled>— Pilih —</option>
-                            {BUDGET_OPTIONS.map((b) => (<option key={b} value={b}>{b}</option>))}
+                        <Field label="Proyeksi Anggaran">
+                          <Select
+                            value={form.budget_range}
+                            onChange={(e) => setField('budget_range', e.target.value)}
+                          >
+                            <option value="" disabled>
+                              Pilih Rentang
+                            </option>
+                            {BUDGET_OPTIONS.map((b) => (
+                              <option key={b} value={b}>
+                                {b}
+                              </option>
+                            ))}
                           </Select>
                         </Field>
                       </div>
-                      <Field label="Brief Proyek" required error={errors.message}>
-                        <Textarea rows={6} value={form.message} onChange={(e) => setField('message', e.target.value)} placeholder="Deskripsikan skala dan objektif proyek..." />
+                      <Field label="Spesifikasi Proyek" required error={errors.message}>
+                        <Textarea
+                          rows={6}
+                          value={form.message}
+                          onChange={(e) => setField('message', e.target.value)}
+                          placeholder="Deskripsikan fitur, target rilis, dan skala proyek Anda..."
+                        />
                       </Field>
-                      <Button type="submit" size="lg" className="w-full" loading={submitting}>
-                        {submitting ? 'Memproses...' : 'Kirim Brief Proyek'}
+                      <Button
+                        type="submit"
+                        size="lg"
+                        className="w-full"
+                        loading={submitting}
+                        icon={submitting ? undefined : Send}
+                      >
+                        {submitting ? 'Memproses Data...' : 'Kirim Brief Proyek'}
                       </Button>
                     </fieldset>
                   </form>
                 )}
-              </Reveal>
-            </div>
+              </GlassCard>
+            </Reveal>
           </div>
         </div>
       </section>

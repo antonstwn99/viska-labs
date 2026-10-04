@@ -270,12 +270,7 @@ export const SEED = {
       full_description:
         'Kami membangun website modern berbasis arsitektur terbaru dengan performa kelas dunia, optimasi SEO menyeluruh, dan desain yang merepresentasikan brand Anda secara premium.',
       icon_name: 'Code2',
-      features: [
-        'Desain custom & responsif',
-        'SEO on-page optimal',
-        'Core Web Vitals hijau',
-        'CMS untuk update mandiri',
-      ],
+      features: ['Desain custom & responsif', 'SEO on-page optimal', 'Core Web Vitals hijau', 'CMS untuk update mandiri'],
       is_active: true,
       sort_order: 1,
     },
@@ -288,12 +283,7 @@ export const SEED = {
       full_description:
         'Dari dashboard analitik hingga platform SaaS multi-tenant, kami merancang aplikasi web yang aman, cepat, dan mudah dikembangkan.',
       icon_name: 'Layers',
-      features: [
-        'Arsitektur scalable',
-        'Realtime & API integration',
-        'Role-based access',
-        'Cloud-native deployment',
-      ],
+      features: ['Arsitektur scalable', 'Realtime & API integration', 'Role-based access', 'Cloud-native deployment'],
       is_active: true,
       sort_order: 2,
     },
@@ -306,12 +296,7 @@ export const SEED = {
       full_description:
         'Aplikasi mobile cross-platform dengan animasi halus, offline support, dan integrasi penuh ke backend Anda.',
       icon_name: 'Smartphone',
-      features: [
-        'iOS & Android',
-        'UX native & gestur halus',
-        'Push notification',
-        'Integrasi backend penuh',
-      ],
+      features: ['iOS & Android', 'UX native & gestur halus', 'Push notification', 'Integrasi backend penuh'],
       is_active: true,
       sort_order: 3,
     },
@@ -324,12 +309,7 @@ export const SEED = {
       full_description:
         'Kami merancang pengalaman digital yang intuitif berbasis riset pengguna, lengkap dengan design system yang scalable.',
       icon_name: 'PenTool',
-      features: [
-        'User research & persona',
-        'Wireframe & prototype',
-        'Design system',
-        'Usability testing',
-      ],
+      features: ['User research & persona', 'Wireframe & prototype', 'Design system', 'Usability testing'],
       is_active: true,
       sort_order: 4,
     },
@@ -342,12 +322,7 @@ export const SEED = {
       full_description:
         'Sistem informasi terpadu untuk sekolah, yayasan, dan organisasi dengan modul lengkap dan dukungan jangka panjang.',
       icon_name: 'Database',
-      features: [
-        'Modul kustom sesuai kebutuhan',
-        'Manajemen data terpusat',
-        'Laporan & analitik',
-        'Support & maintenance',
-      ],
+      features: ['Modul kustom sesuai kebutuhan', 'Manajemen data terpusat', 'Laporan & analitik', 'Support & maintenance'],
       is_active: true,
       sort_order: 5,
     },
@@ -360,12 +335,7 @@ export const SEED = {
       full_description:
         'Tim kami menjaga produk digital Anda tetap aman, cepat, dan up-to-date dengan layanan maintenance proaktif.',
       icon_name: 'Wrench',
-      features: [
-        'Monitoring 24/7',
-        'Security patching',
-        'Backup berkala',
-        'Pengembangan fitur baru',
-      ],
+      features: ['Monitoring 24/7', 'Security patching', 'Backup berkala', 'Pengembangan fitur baru'],
       is_active: true,
       sort_order: 6,
     },
@@ -386,7 +356,6 @@ export const SEED = {
         'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80',
       images: [
         'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80',
       ],
       category: 'Sistem Informasi',
       is_featured: true,
@@ -407,96 +376,12 @@ export const SEED = {
       project_url: 'https://example.com',
       thumbnail_url:
         'https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&fit=crop&w=1200&q=80',
-      images: [
-        'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
-      ],
+      images: [],
       category: 'Web Application',
       is_featured: true,
       is_published: true,
       sort_order: 2,
       completed_at: '2025-09-12',
-    },
-    {
-      id: 'pf-3',
-      title: 'Aurora Fitness App',
-      slug: 'aurora-fitness-app',
-      short_description:
-        'Aplikasi mobile kebugaran dengan tracking realtime & gamifikasi.',
-      full_description:
-        'Aplikasi mobile kebugaran dengan rencana latihan personal, tracking aktivitas realtime, dan elemen gamifikasi untuk meningkatkan retensi pengguna.',
-      client_name: 'Aurora Wellness',
-      tech_stack: ['React Native', 'Expo', 'Supabase'],
-      project_url: 'https://example.com',
-      thumbnail_url:
-        'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80',
-      images: [
-        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80',
-      ],
-      category: 'Mobile App',
-      is_featured: true,
-      is_published: true,
-      sort_order: 3,
-      completed_at: '2025-07-01',
-    },
-    {
-      id: 'pf-4',
-      title: 'Meridian Bank Dashboard',
-      slug: 'meridian-bank-dashboard',
-      short_description:
-        'Dashboard analitik finansial dengan visualisasi data kompleks.',
-      full_description:
-        'Dashboard internal untuk tim finansial dengan visualisasi data realtime, prediksi tren, dan kontrol akses berbasis peran.',
-      client_name: 'Meridian Finance',
-      tech_stack: ['React', 'D3.js', 'Tailwind', 'PostgreSQL'],
-      project_url: 'https://example.com',
-      thumbnail_url:
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-      images: [],
-      category: 'Web Application',
-      is_featured: true,
-      is_published: true,
-      sort_order: 4,
-      completed_at: '2025-05-18',
-    },
-    {
-      id: 'pf-5',
-      title: 'Lumina Brand Site',
-      slug: 'lumina-brand-site',
-      short_description:
-        'Website brand premium dengan scrollytelling sinematik.',
-      full_description:
-        'Website brand dengan pengalaman scrollytelling sinematik, animasi halus, dan performa tinggi yang memenangkan award desain.',
-      client_name: 'Lumina Studio',
-      tech_stack: ['Next.js', 'GSAP', 'Tailwind'],
-      project_url: 'https://example.com',
-      thumbnail_url:
-        'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80',
-      images: [],
-      category: 'Web Development',
-      is_featured: false,
-      is_published: true,
-      sort_order: 5,
-      completed_at: '2025-03-09',
-    },
-    {
-      id: 'pf-6',
-      title: 'Kanvas Design System',
-      slug: 'kanvas-design-system',
-      short_description:
-        'Design system & komponen library untuk produk enterprise.',
-      full_description:
-        'Design system menyeluruh dengan token, komponen, dan dokumentasi untuk mempercepat pengembangan produk di seluruh tim.',
-      client_name: 'Kanvas Tech',
-      tech_stack: ['Figma', 'Storybook', 'React'],
-      project_url: 'https://example.com',
-      thumbnail_url:
-        'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1200&q=80',
-      images: [],
-      category: 'UI/UX Design',
-      is_featured: false,
-      is_published: true,
-      sort_order: 6,
-      completed_at: '2025-01-22',
     },
   ],
   pricing_packages: [
@@ -512,20 +397,10 @@ export const SEED = {
       sort_order: 1,
       cta_label: 'Konsultasi Gratis',
       features: [
-        {
-          id: 'f1',
-          feature_text: 'Landing page hingga 5 section',
-          is_included: true,
-        },
+        { id: 'f1', feature_text: 'Landing page hingga 5 section', is_included: true },
         { id: 'f2', feature_text: 'Desain responsif', is_included: true },
         { id: 'f3', feature_text: 'SEO dasar', is_included: true },
-        {
-          id: 'f4',
-          feature_text: 'Domain & hosting 1 tahun',
-          is_included: true,
-        },
         { id: 'f5', feature_text: 'CMS admin panel', is_included: false },
-        { id: 'f6', feature_text: 'Integrasi pembayaran', is_included: false },
       ],
     },
     {
@@ -543,33 +418,7 @@ export const SEED = {
         { id: 'f1', feature_text: 'Website multi-halaman', is_included: true },
         { id: 'f2', feature_text: 'Desain custom premium', is_included: true },
         { id: 'f3', feature_text: 'SEO menyeluruh', is_included: true },
-        {
-          id: 'f4',
-          feature_text: 'CMS admin panel lengkap',
-          is_included: true,
-        },
-        { id: 'f5', feature_text: 'Animasi & interaksi', is_included: true },
-        { id: 'f6', feature_text: 'Integrasi pembayaran', is_included: false },
-      ],
-    },
-    {
-      id: 'pkg-3',
-      service_id: 'svc-2',
-      name: 'Enterprise',
-      price_from: null,
-      price_to: null,
-      price_label: 'Custom Quote',
-      is_highlighted: false,
-      is_active: true,
-      sort_order: 3,
-      cta_label: 'Hubungi Tim Kami',
-      features: [
-        { id: 'f1', feature_text: 'Aplikasi web kompleks', is_included: true },
-        { id: 'f2', feature_text: 'Arsitektur scalable', is_included: true },
-        { id: 'f3', feature_text: 'Integrasi sistem & API', is_included: true },
-        { id: 'f4', feature_text: 'Dedicated support', is_included: true },
-        { id: 'f5', feature_text: 'SLA & monitoring', is_included: true },
-        { id: 'f6', feature_text: 'Pelatihan tim', is_included: true },
+        { id: 'f4', feature_text: 'CMS admin panel lengkap', is_included: true },
       ],
     },
   ],
@@ -588,170 +437,10 @@ export const SEED = {
       status: 'approved',
       sort_order: 1,
     },
-    {
-      id: 'ts-2',
-      client_name: 'Budi Santoso',
-      client_title: 'Kepala IT',
-      client_company: 'Yayasan Nusantara',
-      client_photo_url:
-        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
-      content:
-        'Sistem informasi sekolah yang dibangun sangat stabil dan mudah digunakan. Tim support-nya responsif sekali.',
-      rating: 5,
-      is_featured: true,
-      status: 'approved',
-      sort_order: 2,
-    },
-    {
-      id: 'ts-3',
-      client_name: 'Clara Wijaya',
-      client_title: 'Marketing Lead',
-      client_company: 'Lumina Studio',
-      client_photo_url:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80',
-      content:
-        'Website kami sekarang terasa hidup dan premium. Banyak klien yang memuji pengalaman scrolling-nya.',
-      rating: 5,
-      is_featured: true,
-      status: 'approved',
-      sort_order: 3,
-    },
-    {
-      id: 'ts-4',
-      client_name: 'Dimas Nugraha',
-      client_title: 'CEO',
-      client_company: 'Aurora Wellness',
-      client_photo_url:
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-      content:
-        'Aplikasi mobile kami mendapat rating tinggi di store. Eksekusi Viska Labs sangat profesional dari awal hingga akhir.',
-      rating: 5,
-      is_featured: false,
-      status: 'approved',
-      sort_order: 4,
-    },
   ],
-  leads: [
-    {
-      id: 'ld-1',
-      full_name: 'Rina Maulida',
-      email: 'rina@contohbisnis.id',
-      whatsapp: '628111111111',
-      company: 'Toko Berkah',
-      service_interest: 'Website Development',
-      budget_range: 'Rp 5 – 15 juta',
-      message: 'Saya butuh website company profile untuk toko bangunan saya.',
-      status: 'new',
-      source_page: 'contact',
-      created_at: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(),
-    },
-    {
-      id: 'ld-2',
-      full_name: 'Fajar Ramadhan',
-      email: 'fajar@startupx.io',
-      whatsapp: '628222222222',
-      company: 'StartupX',
-      service_interest: 'Web Application',
-      budget_range: 'Rp 50 – 100 juta',
-      message: 'Butuh MVP SaaS dalam 8 minggu. Bisa diskusi timeline?',
-      status: 'in_progress',
-      source_page: 'pricing',
-      created_at: new Date(Date.now() - 1000 * 60 * 60 * 30).toISOString(),
-    },
-  ],
-  faq_items: [
-    {
-      id: 'faq-1',
-      question: 'Berapa lama waktu pengerjaan sebuah proyek?',
-      answer:
-        'Bergantung kompleksitas. Landing page 1–2 minggu, website company profile 3–4 minggu, dan aplikasi web/mobile 8–14 minggu. Timeline pasti diberikan setelah sesi konsultasi.',
-      category: 'General',
-      is_published: true,
-      sort_order: 1,
-    },
-    {
-      id: 'faq-2',
-      question: 'Apakah saya bisa mengelola konten sendiri setelah selesai?',
-      answer:
-        'Tentu. Setiap proyek dilengkapi CMS admin panel yang intuitif sehingga Anda bisa memperbarui konten tanpa keahlian teknis.',
-      category: 'Technical',
-      is_published: true,
-      sort_order: 2,
-    },
-    {
-      id: 'faq-3',
-      question: 'Bagaimana skema pembayarannya?',
-      answer:
-        'Umumnya 50% di awal sebagai down payment dan 50% saat proyek selesai. Untuk proyek besar bisa dibagi per milestone.',
-      category: 'Pricing',
-      is_published: true,
-      sort_order: 3,
-    },
-    {
-      id: 'faq-4',
-      question: 'Apakah ada garansi dan maintenance?',
-      answer:
-        'Ya. Setiap proyek mendapat garansi bug-fixing 30 hari, dan tersedia paket maintenance bulanan untuk dukungan berkelanjutan.',
-      category: 'General',
-      is_published: true,
-      sort_order: 4,
-    },
-    {
-      id: 'faq-5',
-      question: 'Apakah Viska Labs menangani SEO?',
-      answer:
-        'Semua website kami dibangun dengan praktik SEO on-page terbaik. Kami juga menyediakan layanan SEO lanjutan sebagai add-on.',
-      category: 'Technical',
-      is_published: true,
-      sort_order: 5,
-    },
-  ],
-  team_members: [
-    {
-      id: 'tm-1',
-      name: 'Arya Wibowo',
-      role: 'CEO & Lead Architect',
-      bio: 'Memimpin visi teknologi Viska Labs dengan 10+ tahun pengalaman membangun produk digital berskala besar.',
-      photo_url:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80',
-      linkedin_url: 'https://linkedin.com',
-      is_active: true,
-      sort_order: 1,
-    },
-    {
-      id: 'tm-2',
-      name: 'Nadia Putri',
-      role: 'Head of Design',
-      bio: 'Creative technologist yang menggabungkan estetika dan fungsi menjadi pengalaman digital yang memukau.',
-      photo_url:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=300&q=80',
-      linkedin_url: 'https://linkedin.com',
-      is_active: true,
-      sort_order: 2,
-    },
-    {
-      id: 'tm-3',
-      name: 'Reza Maulana',
-      role: 'Lead Engineer',
-      bio: 'Spesialis arsitektur full-stack yang obsesif terhadap performa dan kode yang bersih.',
-      photo_url:
-        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
-      linkedin_url: 'https://linkedin.com',
-      is_active: true,
-      sort_order: 3,
-    },
-    {
-      id: 'tm-4',
-      name: 'Siti Anindya',
-      role: 'Product Manager',
-      bio: 'Menjembatani kebutuhan klien dan eksekusi tim agar setiap proyek tepat sasaran dan tepat waktu.',
-      photo_url:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80',
-      linkedin_url: 'https://linkedin.com',
-      is_active: true,
-      sort_order: 4,
-    },
-  ],
+  leads: [],
+  faq_items: [],
+  team_members: [],
   site_settings: {
     company_name: BRAND.name,
     company_tagline: BRAND.tagline,
@@ -860,8 +549,9 @@ export const useToast = () => useContext(ToastContext);
 export const GlobalStyles = () => (
   <style>{`
     :root {
+      /* Menerangi Light Mode agar benar-benar beda dengan Dark Mode */
       --bg-light: #F8FAFC; 
-      --bg-dark: #030F26; /* Deep Navy Space dari Logo */
+      --bg-dark: #030F26; /* Deep Navy Logo Viska */
       --text-light: #0F172A; 
       --text-dark: #F8FAFC;
     }
@@ -880,32 +570,60 @@ export const GlobalStyles = () => (
       color: var(--text-dark);
     }
     
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(21, 102, 209, 0.3); border-radius: 10px; }
-    .dark ::-webkit-scrollbar-thumb { background: rgba(21, 102, 209, 0.5); }
+    .dark ::-webkit-scrollbar-thumb { background: rgba(21, 102, 209, 0.6); }
+
+    /* Animasi Interaktif (Blobs & Shine) */
+    @keyframes blob {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(30px,-50px) scale(1.1); }
+      66% { transform: translate(-20px,20px) scale(0.9); }
+    }
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(200%); }
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-blob { animation: blob 15s infinite alternate ease-in-out; }
+    .animation-delay-2000 { animation-delay: 2s; }
+    .animate-marquee { animation: marquee 30s linear infinite; }
     
+    /* Reveal Animation Halus */
     .reveal { 
       opacity: 0; 
       transform: translateY(20px); 
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); 
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
     }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-    /* Modern Tech Card (Mengembalikan estetika canggih tanpa terlalu transparan) */
+    /* Glassmorphism Premium Canggih (Bukan flat box) */
     .glass, .glass-light { 
-      background: #FFFFFF;
-      border: 1px solid rgba(15, 23, 42, 0.05);
-      border-radius: 1.25rem;
-      box-shadow: 0 4px 24px -8px rgba(15, 23, 42, 0.05);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
     }
     .dark .glass, .dark .glass-light { 
       background: rgba(5, 28, 72, 0.4); 
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
+    
+    /* Efek Shine pada tombol utama */
+    .shine-effect { position: relative; overflow: hidden; }
+    .shine-effect::after { 
+      content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; 
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent); 
+      transform: skewX(-20deg) translateX(-150%); 
+    }
+    .shine-effect:hover::after { animation: shine 1.5s infinite; }
     
     html { overflow-x: hidden; }
   `}</style>
@@ -939,19 +657,19 @@ export const Button = ({
   ...props
 }) => {
   const base =
-    'inline-flex min-w-0 items-center justify-center gap-2 rounded-xl text-center font-bold tracking-wide transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1566D1] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.98] sm:whitespace-nowrap text-[0.875rem]';
+    'inline-flex min-w-0 items-center justify-center gap-2 rounded-2xl text-center font-bold tracking-wide transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1566D1] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.97] sm:whitespace-nowrap text-[0.875rem]';
   const sizes = {
     sm: 'h-10 px-4',
     md: 'h-12 px-6',
     lg: 'h-14 px-8 text-base',
   };
   const variants = {
-    primary: 'bg-[#1566D1] text-white shadow-lg shadow-[#1566D1]/25 hover:bg-[#124691] hover:shadow-[#1566D1]/40',
-    secondary: 'bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200',
-    outline: 'bg-transparent text-slate-900 border border-slate-900/20 hover:border-slate-900 dark:text-white dark:border-white/20 dark:hover:border-white',
+    primary: 'shine-effect bg-[#1566D1] text-white shadow-lg shadow-[#1566D1]/30 hover:bg-[#124691] hover:shadow-[#1566D1]/50 hover:-translate-y-0.5',
+    secondary: 'bg-slate-900 text-white hover:bg-slate-800 shadow-md dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200',
+    outline: 'bg-transparent text-[#1566D1] border-2 border-[#1566D1]/30 hover:border-[#1566D1] hover:bg-[#1566D1]/5 dark:text-white dark:border-white/20 dark:hover:border-white',
     ghost: 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10',
-    danger: 'bg-red-600 text-white hover:bg-red-700',
-    success: 'bg-emerald-600 text-white hover:bg-emerald-700',
+    danger: 'bg-red-600 text-white hover:bg-red-700 shadow-lg',
+    success: 'bg-emerald-500 text-white hover:bg-emerald-600 shadow-lg',
   };
   return (
     <Tag
@@ -970,13 +688,13 @@ export const Button = ({
 };
 
 export const Badge = ({ children, variant = 'default', className = '' }) => {
-  const base = 'inline-flex max-w-full items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider whitespace-normal break-words border transition-colors';
+  const base = 'inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider whitespace-normal break-words border transition-colors';
   const variants = {
-    default: 'border-[#1566D1]/20 text-[#1566D1] bg-[#1566D1]/10 dark:border-[#1566D1]/30 dark:text-[#7fb0f5] dark:bg-[#1566D1]/20',
-    glass: 'border-slate-200 text-slate-700 bg-white dark:border-white/10 dark:text-white dark:bg-white/5 backdrop-blur-sm',
-    success: 'border-emerald-500/20 text-emerald-600 bg-emerald-500/10 dark:border-emerald-500/30 dark:text-emerald-400 dark:bg-emerald-500/20',
-    warning: 'border-amber-500/20 text-amber-600 bg-amber-500/10 dark:border-amber-500/30 dark:text-amber-400 dark:bg-amber-500/20',
-    danger: 'border-red-500/20 text-red-600 bg-red-500/10 dark:border-red-500/30 dark:text-red-400 dark:bg-red-500/20',
+    default: 'border-[#1566D1]/20 text-[#1566D1] bg-[#1566D1]/10 dark:border-[#7fb0f5]/30 dark:text-[#7fb0f5] dark:bg-[#1566D1]/20',
+    glass: 'border-slate-200 text-slate-700 bg-white/70 dark:border-white/10 dark:text-white dark:bg-white/5 backdrop-blur-md shadow-sm',
+    success: 'border-emerald-500/20 text-emerald-600 bg-emerald-500/10 dark:border-emerald-500/30 dark:text-emerald-400',
+    warning: 'border-amber-500/20 text-amber-600 bg-amber-500/10 dark:border-amber-500/30 dark:text-amber-400',
+    danger: 'border-red-500/20 text-red-600 bg-red-500/10 dark:border-red-500/30 dark:text-red-400',
     neutral: 'border-slate-200 text-slate-500 bg-slate-50 dark:border-white/10 dark:text-slate-400 dark:bg-white/5',
   };
   return (
@@ -989,8 +707,8 @@ export const Badge = ({ children, variant = 'default', className = '' }) => {
 export const GlassCard = ({ children, className = '', hover = true, ...props }) => (
   <div
     className={classNames(
-      'glass dark:glass glass-light p-6 sm:p-8 transition-all duration-300',
-      hover && 'hover:-translate-y-1 hover:border-[#1566D1]/30 hover:shadow-xl dark:hover:border-white/20',
+      'glass dark:glass glass-light p-6 sm:p-8 transition-all duration-300 relative overflow-hidden',
+      hover && 'hover:-translate-y-1 hover:border-[#1566D1]/40 hover:shadow-2xl hover:shadow-[#1566D1]/10 dark:hover:border-white/30',
       className
     )}
     {...props}
@@ -1000,7 +718,7 @@ export const GlassCard = ({ children, className = '', hover = true, ...props }) 
 );
 
 export const SectionHeading = ({ eyebrow, title, description, center = true, light }) => (
-  <div className={classNames('max-w-3xl', center && 'mx-auto text-center')}>
+  <div className={classNames('max-w-3xl relative z-10', center && 'mx-auto text-center')}>
     {eyebrow && (
       <Reveal>
         <Badge variant={light ? 'glass' : 'default'} className="mb-6">
@@ -1011,7 +729,7 @@ export const SectionHeading = ({ eyebrow, title, description, center = true, lig
     <Reveal delay={80}>
       <h2
         className={classNames(
-          'text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-balance',
+          'text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-balance',
           light ? 'text-white' : 'text-slate-900 dark:text-white'
         )}
       >
@@ -1024,7 +742,7 @@ export const SectionHeading = ({ eyebrow, title, description, center = true, lig
           className={classNames(
             'mt-6 text-base sm:text-lg leading-relaxed max-w-2xl font-medium',
             center && 'mx-auto',
-            light ? 'text-slate-200' : 'text-slate-500 dark:text-slate-400'
+            light ? 'text-slate-200' : 'text-slate-500 dark:text-slate-300'
           )}
         >
           {description}
@@ -1041,27 +759,19 @@ export const StarRating = ({
   onChange,
   className = '',
 }) => (
-  <div className={classNames('inline-flex items-center gap-0.5', className)}>
+  <div className={classNames('inline-flex items-center gap-1', className)}>
     {[1, 2, 3, 4, 5].map((i) => (
       <button
         key={i}
         type="button"
         disabled={!interactive}
         onClick={() => interactive && onChange?.(i)}
-        aria-label={`Beri rating ${i} bintang`}
         className={classNames(
-          'p-1.5 -m-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1566D1]',
-          interactive &&
-            'cursor-pointer hover:scale-110 transition-transform duration-200',
-          !interactive && 'cursor-default'
+          'p-1 -m-1 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1566D1]',
+          interactive && 'cursor-pointer hover:scale-110 transition-transform duration-200'
         )}
       >
-        <Star
-          className={classNames(
-            size,
-            i <= value ? 'fill-amber-400 text-amber-400' : 'text-slate-400/40'
-          )}
-        />
+        <Star className={classNames(size, i <= value ? 'fill-amber-400 text-amber-400' : 'text-slate-300 dark:text-slate-600')} />
       </button>
     ))}
   </div>
@@ -1070,7 +780,7 @@ export const StarRating = ({
 export const Field = ({ label, error, required, children, hint }) => (
   <label className="block">
     {label && (
-      <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-200">
+      <span className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200">
         {label} {required && <span className="text-red-500">*</span>}
       </span>
     )}
@@ -1079,14 +789,14 @@ export const Field = ({ label, error, required, children, hint }) => (
       <span className="mt-1 block text-xs text-slate-400">{hint}</span>
     )}
     {error && (
-      <span className="mt-1 block text-xs font-medium text-red-500 dark:text-red-400">
+      <span className="mt-1 block text-xs font-bold text-red-500">
         {error}
       </span>
     )}
   </label>
 );
 
-export const inputClass = 'w-full h-12 rounded-xl border border-slate-200 bg-white/50 px-4 text-sm font-medium text-slate-900 placeholder:text-slate-400 hover:border-[#1566D1]/50 focus:border-[#1566D1] focus:ring-4 focus:ring-[#1566D1]/10 outline-none transition-all duration-300 dark:border-white/10 dark:bg-[#051C48]/30 dark:text-white dark:placeholder:text-slate-500 dark:hover:border-[#7fb0f5]/50 dark:focus:border-[#7fb0f5] dark:focus:ring-[#7fb0f5]/10';
+export const inputClass = 'w-full h-12 rounded-2xl border-2 border-slate-200 bg-white/50 px-4 text-sm font-semibold text-slate-900 placeholder:text-slate-400 hover:border-[#1566D1]/50 focus:bg-white focus:border-[#1566D1] focus:ring-4 focus:ring-[#1566D1]/10 outline-none transition-all duration-300 dark:border-white/10 dark:bg-[#030F26]/50 dark:text-white dark:hover:border-[#7fb0f5]/50 dark:focus:border-[#7fb0f5] dark:focus:bg-[#030F26]';
 
 export const Input = ({ className = '', ...props }) => (
   <input className={classNames(inputClass, className)} {...props} />
@@ -1095,11 +805,7 @@ export const Input = ({ className = '', ...props }) => (
 export const Textarea = ({ className = '', rows = 4, ...props }) => (
   <textarea
     rows={rows}
-    className={classNames(
-      inputClass,
-      'h-auto py-3 resize-none sm:resize-y',
-      className
-    )}
+    className={classNames(inputClass, 'h-auto py-3 resize-none sm:resize-y', className)}
     {...props}
   />
 );
@@ -1108,7 +814,7 @@ export const Select = ({ className = '', children, ...props }) => (
   <select
     className={classNames(
       inputClass,
-      'appearance-none pr-10 bg-[linear-gradient(45deg,transparent_50%,currentColor_50%),linear-gradient(135deg,currentColor_50%,transparent_50%)] bg-[length:5px_5px,5px_5px] bg-[position:calc(100%-18px)_50%,calc(100%-13px)_50%] bg-no-repeat text-slate-900 dark:text-white [&>option]:bg-white [&>option]:text-slate-900 dark:[&>option]:bg-[#0a2350] dark:[&>option]:text-white',
+      'appearance-none pr-10 bg-[linear-gradient(45deg,transparent_50%,currentColor_50%),linear-gradient(135deg,currentColor_50%,transparent_50%)] bg-[length:5px_5px,5px_5px] bg-[position:calc(100%-18px)_50%,calc(100%-13px)_50%] bg-no-repeat text-slate-900 dark:text-white [&>option]:bg-white [&>option]:text-slate-900 dark:[&>option]:bg-[#030F26] dark:[&>option]:text-white',
       className
     )}
     {...props}
@@ -1123,14 +829,12 @@ export const Toggle = ({ checked, onChange, label }) => (
     role="switch"
     aria-checked={checked}
     onClick={() => onChange(!checked)}
-    className="inline-flex min-w-0 max-w-full items-center gap-3 rounded-full text-left outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#1566D1] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#0a2350]"
+    className="inline-flex min-w-0 max-w-full items-center gap-3 rounded-full text-left outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#1566D1]"
   >
     <span
       className={classNames(
-        'relative h-6 w-11 flex-shrink-0 rounded-full border border-transparent transition-all duration-200',
-        checked
-          ? 'bg-[#1566D1] shadow-[0_8px_20px_rgba(21,102,209,0.28)]'
-          : 'bg-slate-300/80 dark:bg-white/15'
+        'relative h-6 w-11 flex-shrink-0 rounded-full border border-transparent transition-colors duration-200',
+        checked ? 'bg-[#1566D1]' : 'bg-slate-300 dark:bg-slate-700'
       )}
     >
       <span
@@ -1141,7 +845,7 @@ export const Toggle = ({ checked, onChange, label }) => (
       />
     </span>
     {label && (
-      <span className="min-w-0 text-sm font-medium leading-5 text-slate-700 dark:text-slate-200 whitespace-normal break-words">
+      <span className="min-w-0 text-sm font-bold text-slate-700 dark:text-slate-200">
         {label}
       </span>
     )}
@@ -1162,56 +866,29 @@ export const Modal = ({ open, onClose, title, children, size = 'md' }) => {
   if (!open) return null;
   const sizes = { sm: 'max-w-md', md: 'max-w-2xl', lg: 'max-w-4xl' };
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto overscroll-contain p-3 sm:p-6"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-    >
-      <div
-        className="fixed inset-0 bg-[#051C48]/70 backdrop-blur-sm transition-opacity"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-      <div
-        className={classNames(
-          'relative z-10 my-8 w-full rounded-2xl border border-white/15 bg-white dark:bg-[#0a2350] shadow-2xl transition-all',
-          sizes[size]
-        )}
-      >
-        <div className="flex items-center justify-between border-b border-slate-200/60 dark:border-white/10 p-5">
-          <h3
-            id="modal-title"
-            className="min-w-0 pr-3 text-lg font-bold leading-tight text-slate-900 dark:text-white"
-          >
-            {title}
-          </h3>
-          <button
-            onClick={onClose}
-            aria-label="Tutup modal"
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-500/10 hover:text-slate-700 dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1566D1]"
-          >
+    <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto overscroll-contain p-4 sm:p-6">
+      <div className="fixed inset-0 bg-[#030F26]/80 backdrop-blur-sm transition-opacity" onClick={onClose} />
+      <div className={classNames('relative z-10 my-8 w-full rounded-3xl border border-white/10 bg-white dark:bg-[#030F26] shadow-2xl', sizes[size])}>
+        <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/10 p-6">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
+          <button onClick={onClose} className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10">
             <X className="h-5 w-5" />
           </button>
         </div>
-        <div className="max-h-[calc(100dvh-9rem)] overflow-y-auto overscroll-contain p-4 sm:max-h-[70vh] sm:p-5">{children}</div>
+        <div className="max-h-[calc(100dvh-10rem)] overflow-y-auto p-6">{children}</div>
       </div>
     </div>
   );
 };
 
 export const EmptyState = ({ icon: Icon = Inbox, title, description, action }) => (
-  <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300/80 dark:border-white/15 bg-slate-50/50 dark:bg-slate-800/20 py-16 px-4 text-center transition-all duration-300 hover:bg-slate-50 dark:hover:bg-slate-800/40 hover:border-slate-400/50 dark:hover:border-white/30">
-    <div className="mb-5 rounded-2xl bg-gradient-to-br from-[#1566D1]/10 to-[#124691]/10 p-4 ring-1 ring-[#1566D1]/20">
-      <Icon className="h-8 w-8 text-[#1566D1]" />
+  <div className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 py-16 px-6 text-center transition-all duration-300 hover:bg-slate-50 dark:hover:bg-white/10">
+    <div className="mb-6 rounded-3xl bg-[#1566D1]/10 p-5 text-[#1566D1]">
+      <Icon className="h-8 w-8" />
     </div>
-    <p className="text-lg font-bold text-slate-900 dark:text-white">{title}</p>
-    {description && (
-      <p className="mt-2 max-w-sm text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-        {description}
-      </p>
-    )}
-    {action && <div className="mt-6">{action}</div>}
+    <p className="text-xl font-bold text-slate-900 dark:text-white">{title}</p>
+    {description && <p className="mt-2 max-w-sm text-sm font-medium text-slate-500 dark:text-slate-400">{description}</p>}
+    {action && <div className="mt-8">{action}</div>}
   </div>
 );
 
@@ -1227,35 +904,16 @@ export const ToastProvider = ({ children }) => {
     setToasts((t) => [...t, { id, message, type }]);
     setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 3500);
   }, []);
-  const api = useMemo(
-    () => ({
-      success: (m) => push(m, 'success'),
-      error: (m) => push(m, 'error'),
-      info: (m) => push(m, 'info'),
-    }),
-    [push]
-  );
+  const api = useMemo(() => ({ success: (m) => push(m, 'success'), error: (m) => push(m, 'error'), info: (m) => push(m, 'info') }), [push]);
   return (
     <ToastContext.Provider value={api}>
       {children}
-      <div
-        aria-live="assertive"
-        role="alert"
-        className="fixed bottom-5 right-5 z-[200] flex flex-col gap-2 pointer-events-none"
-      >
+      <div className="fixed bottom-6 right-6 z-[200] flex flex-col gap-3 pointer-events-none">
         {toasts.map((t) => (
-          <div
-            key={t.id}
-            className={classNames(
-              'flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-white shadow-xl transition-all duration-300',
-              t.type === 'success' && 'bg-emerald-500',
-              t.type === 'error' && 'bg-red-500',
-              t.type === 'info' && 'bg-[#1566D1]'
-            )}
-          >
-            {t.type === 'success' && <CheckCircle2 className="h-4 w-4" />}
-            {t.type === 'error' && <XCircle className="h-4 w-4" />}
-            {t.type === 'info' && <Sparkles className="h-4 w-4" />}
+          <div key={t.id} className={classNames('flex items-center gap-3 rounded-2xl px-5 py-4 text-sm font-bold text-white shadow-2xl transition-all', t.type === 'success' && 'bg-emerald-500', t.type === 'error' && 'bg-red-500', t.type === 'info' && 'bg-[#1566D1]')}>
+            {t.type === 'success' && <CheckCircle2 className="h-5 w-5" />}
+            {t.type === 'error' && <XCircle className="h-5 w-5" />}
+            {t.type === 'info' && <Sparkles className="h-5 w-5" />}
             {t.message}
           </div>
         ))}
@@ -1264,71 +922,28 @@ export const ToastProvider = ({ children }) => {
   );
 };
 
-// =========================================
-// BRAND ICONS & LOGO 
-// =========================================
-
 export const Instagram = ({ className = 'h-5 w-5' }) => (
-  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-  </svg>
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
 );
-
 export const Linkedin = ({ className = 'h-5 w-5' }) => (
-  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-    <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
-    <rect x="2" y="9" width="4" height="12" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
 );
-
 export const Github = ({ className = 'h-5 w-5' }) => (
-  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
-  </svg>
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" /></svg>
 );
 
-export const Logo = ({ onClick, light }) => (
+export const Logo = ({ onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className="group inline-flex max-w-full items-center gap-2.5 overflow-hidden rounded-2xl text-left outline-none transition-transform active:scale-95 focus-visible:ring-2 focus-visible:ring-[#1566D1] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#051C48] sm:gap-3"
-    aria-label={`${BRAND.short} beranda`}
+    className="group inline-flex items-center gap-3 text-left outline-none transition-transform active:scale-95"
   >
-    <span
-      className={classNames(
-        'relative isolate flex h-11 w-11 flex-none items-center justify-center overflow-hidden rounded-2xl bg-white p-2 shadow-sm ring-1 transition-all duration-300 before:pointer-events-none before:absolute before:inset-0 before:rounded-2xl before:ring-1 before:ring-inset before:ring-white/80 group-hover:shadow-md sm:h-12 sm:w-12',
-        light
-          ? 'ring-white/35 group-hover:ring-white/60'
-          : 'ring-[#1566D1]/20 dark:ring-white/20 group-hover:ring-[#1566D1]/35 dark:group-hover:ring-white/35'
-      )}
-    >
-      <img
-        src={BRAND.logo}
-        alt={`${BRAND.short} logo`}
-        className="block h-full w-full select-none object-contain"
-        draggable="false"
-      />
+    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white p-2 shadow-sm ring-1 ring-slate-200 dark:ring-white/20">
+      <img src={BRAND.logo} alt="Logo" className="h-full w-full object-contain" />
     </span>
-    <span className="flex min-w-0 flex-col leading-none">
-      <span
-        className={classNames(
-          'truncate text-base font-black tracking-[0.1em] sm:text-lg sm:tracking-[0.12em]',
-          light ? 'text-white' : 'text-slate-950 dark:text-white'
-        )}
-      >
-        VISKA LABS
-      </span>
-      <span
-        className={classNames(
-          'mt-1 truncate text-[0.56rem] font-bold tracking-[0.18em] sm:text-[0.64rem] sm:tracking-[0.28em]',
-          light ? 'text-white/75' : 'text-[#1566D1] dark:text-[#7fb0f5]'
-        )}
-      >
-        CREATIVE TECHNOLOGY
-      </span>
+    <span className="flex flex-col">
+      <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase">VISKA LABS</span>
+      <span className="text-[0.6rem] font-bold tracking-widest text-[#1566D1] dark:text-[#7fb0f5] uppercase">Creative Technology</span>
     </span>
   </button>
 );

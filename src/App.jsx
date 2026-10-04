@@ -36,7 +36,7 @@ import AdminApp from './admin';
 
 // =========================================
 // MAIN APPLICATION
-// =========================================
+// =======================================
 
 const LoadingScreen = () => (
   <div className="flex min-h-screen flex-col items-center justify-center gap-4">
