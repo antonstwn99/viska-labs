@@ -140,13 +140,27 @@ export const Footer = ({ navigate, settings }) => (
   </footer>
 );
 
+export const FloatingWhatsApp = ({ settings }) => (
+  <div className="fixed bottom-5 left-5 z-[85] animate-slow-blob">
+    <a
+      href={buildWhatsAppLink(settings.whatsapp_number)}
+      target="_blank"
+      rel="noreferrer"
+      className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-xl shadow-emerald-500/40 transition-transform duration-300 hover:scale-110"
+      aria-label="Chat WhatsApp"
+    >
+      <MessageCircle className="h-7 w-7" />
+    </a>
+  </div>
+);
+
 const HeroSection = ({ navigate }) => (
   <section className="relative pt-32 pb-16 sm:pt-44 sm:pb-24">
     <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 relative z-10">
       <Reveal>
         <Badge variant="glass" className="mb-6 px-4 py-2 shadow-sm">
           <span className="h-2 w-2 rounded-full bg-[#1566D1]" />
-          Rekayasa Perangkat Lunak
+          Creative Technology Agency
         </Badge>
       </Reveal>
       <Reveal delay={100}>
@@ -347,12 +361,39 @@ const PageHero = ({ title, description }) => (
   </section>
 );
 
+/* IMPROVISASI 1: Halaman Tentang (Visi Misi Gabungan Sinematik) */
 export const AboutPage = ({ data, navigate }) => {
   const team = data.team_members.filter((m) => m.is_active);
   return (
     <>
       <PageHero title="Profil Perusahaan" description="Viska Labs adalah badan usaha yang menyediakan layanan penulisan kode sumber dan perancangan antarmuka pengguna." />
       <section className="py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <Reveal>
+            <div className="grid lg:grid-cols-2 gap-12 items-center bg-[#051C48] rounded-[2rem] p-10 sm:p-16 overflow-hidden relative shadow-2xl border border-white/10">
+              <div className="absolute top-[-20%] right-[-10%] h-[400px] w-[400px] rounded-full bg-[#1566D1]/20 blur-[100px] pointer-events-none" />
+              <div className="relative z-10 space-y-8">
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-[#7fb0f5] mb-4">Visi Utama</h3>
+                  <p className="text-2xl sm:text-3xl font-bold text-white leading-snug">Menjadi standar emas praktik rekayasa perangkat lunak di Indonesia melalui kode yang bersih dan visual yang berkarakter.</p>
+                </div>
+                <div className="w-16 h-1 bg-white/20 rounded-full" />
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-[#7fb0f5] mb-4">Misi Operasional</h3>
+                  <p className="text-lg text-slate-300 leading-relaxed">Menghadirkan arsitektur sistem kelas enterprise dengan performa tinggi, keamanan berlapis, dan alur pengguna yang intuitif pada setiap penugasan.</p>
+                </div>
+              </div>
+              <div className="relative z-10 grid grid-cols-2 gap-4">
+                 <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl text-center"><Target className="h-8 w-8 text-[#7fb0f5] mx-auto mb-3" /><p className="text-white font-bold">Fokus Hasil</p></div>
+                 <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl text-center mt-8"><Lightbulb className="h-8 w-8 text-[#7fb0f5] mx-auto mb-3" /><p className="text-white font-bold">Inovasi</p></div>
+                 <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl text-center"><Award className="h-8 w-8 text-[#7fb0f5] mx-auto mb-3" /><p className="text-white font-bold">Kualitas</p></div>
+                 <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl text-center mt-8"><Heart className="h-8 w-8 text-[#7fb0f5] mx-auto mb-3" /><p className="text-white font-bold">Dedikasi</p></div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+      <section className="py-20 bg-white/40 dark:bg-[#051C48]/40 border-t border-slate-200 dark:border-white/10 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeading center={false} title="Personel" description="Individu yang bertanggung jawab atas penulisan dan tinjauan kode." />
           <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -374,27 +415,31 @@ export const AboutPage = ({ data, navigate }) => {
   );
 };
 
+/* IMPROVISASI 2: Halaman Layanan (Tata Letak Zig-Zag untuk RHYTHM 2) */
 export const ServicesPage = ({ data, navigate }) => {
   const services = data.services.filter((s) => s.is_active);
   return (
     <>
       <PageHero title="Katalog Layanan" description="Daftar kapabilitas teknis yang disediakan oleh Viska Labs." />
       <section className="py-20">
-        <div className="mx-auto max-w-7xl space-y-10 px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl space-y-24 px-4 sm:px-6">
           {services.map((s, i) => (
-            <Reveal key={s.id} delay={(i % 3) * 80}>
-              <GlassCard className="grid md:grid-cols-3 gap-10 border-l-4 border-l-[#1566D1]">
-                <div>
-                  <h3 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">{s.name}</h3>
-                  <p className="mt-3 text-sm font-medium text-slate-600 dark:text-slate-400">{s.short_description}</p>
+            <Reveal key={s.id} delay={80}>
+              <div className={classNames('flex flex-col gap-12 md:items-center', i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse')}>
+                <div className="flex-1 w-full bg-slate-100 dark:bg-[#030F26] aspect-video rounded-3xl border border-slate-200 dark:border-white/10 shadow-xl flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#1566D1]/10 to-transparent" />
+                  <ServiceIcon name={s.icon_name} className="h-24 w-24 text-[#1566D1]/40" />
                 </div>
-                <div className="md:col-span-2">
-                  <p className="text-base font-medium leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-line">{s.full_description}</p>
-                  <ul className="mt-6 grid gap-3 sm:grid-cols-2 text-sm font-bold text-slate-700 dark:text-slate-300">
+                <div className="flex-1">
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#1566D1]/10 text-[#1566D1]"><ServiceIcon name={s.icon_name} className="h-6 w-6" /></div>
+                  <h3 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white">{s.name}</h3>
+                  <p className="mt-4 text-base font-medium leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-line">{s.full_description}</p>
+                  <ul className="mt-8 grid gap-4 sm:grid-cols-2 text-sm font-bold text-slate-700 dark:text-slate-300">
                     {(s.features || []).map((f, i) => <li key={i} className="flex items-center gap-3"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1566D1]/10 text-[#1566D1]"><Check className="h-3.5 w-3.5" /></span>{f}</li>)}
                   </ul>
+                  <div className="mt-10 flex gap-4"><Button onClick={() => navigate(ROUTES.PRICING)}>Lihat Skema Biaya</Button></div>
                 </div>
-              </GlassCard>
+              </div>
             </Reveal>
           ))}
         </div>
@@ -494,6 +539,7 @@ export const PricingPage = ({ data, navigate }) => {
   );
 };
 
+/* IMPROVISASI 3: Halaman Testimoni (Tata Letak Masonry Organik) */
 export const TestimonialsPage = ({ data, navigate }) => {
   const approved = data.testimonials.filter((t) => t.status === 'approved');
   return (
@@ -502,10 +548,10 @@ export const TestimonialsPage = ({ data, navigate }) => {
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           {approved.length ? (
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-8">
               {approved.map((t, i) => (
                 <Reveal key={t.id} delay={i * 80}>
-                  <GlassCard className="h-full flex flex-col">
+                  <GlassCard className="break-inside-avoid mb-8 flex flex-col">
                     <Quote className="mb-4 h-8 w-8 text-[#1566D1]/30" />
                     <p className="text-base font-medium leading-relaxed text-slate-700 dark:text-slate-300 flex-1">"{t.content}"</p>
                     <div className="mt-8 border-t border-slate-200 dark:border-white/10 pt-5">
@@ -523,21 +569,34 @@ export const TestimonialsPage = ({ data, navigate }) => {
   );
 };
 
+/* IMPROVISASI 4: Halaman FAQ (Sistem Accordion Interaktif) */
+const FaqAccordionItem = ({ item, open, onToggle }) => (
+  <div className="overflow-hidden rounded-2xl glass dark:glass glass-light transition border border-slate-200/80 dark:border-white/10 mb-4">
+    <button onClick={onToggle} aria-expanded={open} className="flex w-full items-center justify-between gap-4 p-5 sm:p-6 text-left outline-none transition-colors hover:bg-slate-50 dark:hover:bg-white/5">
+      <span className="font-bold text-slate-900 dark:text-white sm:text-lg">{item.question}</span>
+      <ChevronDown className={classNames('h-5 w-5 flex-shrink-0 text-[#1566D1] transition-transform duration-300', open && 'rotate-180')} />
+    </button>
+    <div className={classNames('grid transition-all duration-300 ease-in-out', open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0')}>
+      <div className="overflow-hidden">
+        <p className="px-5 sm:px-6 pb-6 font-medium leading-relaxed text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-white/5 pt-4 mt-2">{item.answer}</p>
+      </div>
+    </div>
+  </div>
+);
+
 export const FaqPage = ({ data }) => {
   const published = data.faq_items.filter((f) => f.is_published);
+  const [openId, setOpenId] = useState(null);
   return (
     <>
       <PageHero title="Daftar Pertanyaan" description="Informasi teknis dan operasional." />
       <section className="py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           {published.length ? (
-            <div className="space-y-6">
+            <div className="space-y-2">
               {published.map((f, i) => (
                 <Reveal key={f.id} delay={i * 50}>
-                  <GlassCard hover={false} className="!p-6">
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">{f.question}</h3>
-                    <p className="mt-3 text-sm font-medium leading-relaxed text-slate-600 dark:text-slate-400">{f.answer}</p>
-                  </GlassCard>
+                  <FaqAccordionItem item={f} open={openId === f.id} onToggle={() => setOpenId((id) => (id === f.id ? null : f.id))} />
                 </Reveal>
               ))}
             </div>
@@ -548,15 +607,17 @@ export const FaqPage = ({ data }) => {
   );
 };
 
+/* IMPROVISASI 5: Halaman Kontak (Panel Solid Menyatu) */
 export const ContactPage = ({ data, crud }) => {
   const toast = useToast();
+  const settings = data.site_settings;
   const empty = { full_name: '', email: '', whatsapp: '', company: '', service_interest: '', budget_range: '', message: '' };
   const [form, setForm] = useState(empty);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.full_name || !form.message) { toast?.error('Lengkapi form'); return; }
+    if (!form.full_name || !form.message) { toast?.error('Identitas dan pesan wajib diisi'); return; }
     setSubmitting(true);
     try {
       await crud.leads.create({ ...form, status: 'new', source_page: 'contact', created_at: new Date().toISOString() });
@@ -568,18 +629,32 @@ export const ContactPage = ({ data, crud }) => {
     <>
       <PageHero title="Pengiriman Dokumen Proyek" description="Formulir untuk menyerahkan detail kebutuhan perangkat lunak." />
       <section className="py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <Reveal>
-            <GlassCard hover={false}>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <Field label="Identitas Pengirim"><Input value={form.full_name} onChange={(e) => setForm((f) => ({ ...f, full_name: e.target.value }))} /></Field>
-                  <Field label="Alamat Surat Elektronik (Email)"><Input type="email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} /></Field>
+            <div className="grid lg:grid-cols-5 gap-0 bg-white/80 dark:bg-[#0B2F6B]/40 backdrop-blur-xl rounded-3xl border border-slate-200/80 dark:border-white/10 shadow-2xl overflow-hidden">
+              <div className="lg:col-span-2 bg-[#051C48] p-10 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#1566D1]/30 blur-[80px] rounded-full pointer-events-none" />
+                <div className="relative z-10 h-full flex flex-col">
+                  <h3 className="text-2xl font-bold mb-8">Informasi Kontak</h3>
+                  <div className="space-y-8 flex-1">
+                    <div className="flex items-center gap-4"><div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-white"><Mail className="h-5 w-5" /></div><div><p className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-1">Email</p><p className="font-medium">{settings.contact_email || BRAND.email}</p></div></div>
+                    <div className="flex items-center gap-4"><div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-white"><Phone className="h-5 w-5" /></div><div><p className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-1">Telepon</p><p className="font-medium">+{settings.whatsapp_number || BRAND.whatsapp}</p></div></div>
+                    <div className="flex items-center gap-4"><div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-white"><MapPin className="h-5 w-5" /></div><div><p className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-1">Alamat</p><p className="font-medium">{settings.address || BRAND.address}</p></div></div>
+                  </div>
                 </div>
-                <Field label="Pesan atau Spesifikasi Kebutuhan"><Textarea rows={6} value={form.message} onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))} /></Field>
-                <div className="pt-2"><Button type="submit" size="lg" loading={submitting} className="w-full">Masukkan ke Antrean</Button></div>
-              </form>
-            </GlassCard>
+              </div>
+              <div className="lg:col-span-3 p-10 sm:p-12">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Formulir Pengajuan</h3>
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <Field label="Identitas Pengirim"><Input value={form.full_name} onChange={(e) => setForm((f) => ({ ...f, full_name: e.target.value }))} /></Field>
+                    <Field label="Alamat Surat Elektronik"><Input type="email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} /></Field>
+                  </div>
+                  <Field label="Pesan atau Spesifikasi Kebutuhan"><Textarea rows={6} value={form.message} onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))} /></Field>
+                  <div className="pt-4"><Button type="submit" size="lg" loading={submitting} className="w-full sm:w-auto" icon={Send}>Kirim ke Antrean</Button></div>
+                </form>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
